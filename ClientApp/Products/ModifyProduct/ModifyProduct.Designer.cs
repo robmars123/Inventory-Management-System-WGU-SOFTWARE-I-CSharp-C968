@@ -376,7 +376,10 @@
             this.Controls.Add(this.labelId);
             this.Controls.Add(this.btnAddPart);
             this.Name = "ModifyProduct";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Product";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ModifyProduct_FormClosed);
+            this.Load += new System.EventHandler(this.ModifyProduct_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsAssociated)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsGrid)).EndInit();
             this.ResumeLayout(false);

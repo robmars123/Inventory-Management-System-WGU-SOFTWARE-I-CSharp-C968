@@ -12,9 +12,26 @@ namespace ClientApp.Products.ModifyProduct
 {
     public partial class ModifyProduct : Form
     {
+        private MainScreen mainScreen;
         public ModifyProduct()
         {
             InitializeComponent();
+        }
+
+        public ModifyProduct(MainScreen main)
+        {
+            mainScreen = main;
+            InitializeComponent();
+        }
+
+        private void ModifyProduct_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ModifyProduct_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            mainScreen.Show();
         }
     }
 }

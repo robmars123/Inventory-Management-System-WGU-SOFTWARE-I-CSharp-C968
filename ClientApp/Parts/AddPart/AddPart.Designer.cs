@@ -247,6 +247,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Part";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddPart_FormClosed);
+            this.Load += new System.EventHandler(this.AddPart_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
