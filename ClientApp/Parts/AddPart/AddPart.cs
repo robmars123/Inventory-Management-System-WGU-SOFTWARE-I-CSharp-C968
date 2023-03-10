@@ -28,5 +28,10 @@ namespace ClientApp.Parts.AddPart
         {
             mainScreen.Show();
         }
+
+        private void AddPart_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

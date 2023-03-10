@@ -376,7 +376,9 @@
             this.Controls.Add(this.dataPartsGrid);
             this.Controls.Add(this.labelAddProduct);
             this.Name = "AddProduct";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Product";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddProduct_FormClosed);
             this.Load += new System.EventHandler(this.AddProduct_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsAssociated)).EndInit();

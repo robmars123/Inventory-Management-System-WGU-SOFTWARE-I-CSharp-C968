@@ -266,6 +266,7 @@ namespace ClientApp
             this.modifyProduct.TabIndex = 13;
             this.modifyProduct.Text = "Modify";
             this.modifyProduct.UseVisualStyleBackColor = true;
+            this.modifyProduct.Click += new System.EventHandler(this.modifyProduct_Click);
             // 
             // addProduct
             // 
@@ -275,6 +276,7 @@ namespace ClientApp
             this.addProduct.TabIndex = 12;
             this.addProduct.Text = "Add";
             this.addProduct.UseVisualStyleBackColor = true;
+            this.addProduct.Click += new System.EventHandler(this.addProduct_Click);
             // 
             // exitBtn
             // 
@@ -311,6 +313,7 @@ namespace ClientApp
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main Screen";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainScreen_FormClosed);
+            this.Load += new System.EventHandler(this.MainScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataProductGrid)).EndInit();
             this.ResumeLayout(false);
