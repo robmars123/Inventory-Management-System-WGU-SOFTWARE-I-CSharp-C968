@@ -228,6 +228,7 @@ namespace ClientApp
             this.addPart.TabIndex = 9;
             this.addPart.Text = "Add";
             this.addPart.UseVisualStyleBackColor = true;
+            this.addPart.Click += new System.EventHandler(this.addPart_Click);
             // 
             // modifyPart
             // 
@@ -283,10 +284,11 @@ namespace ClientApp
             this.exitBtn.Text = "Exit";
             this.exitBtn.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1332, 606);
             this.Controls.Add(this.exitBtn);
             this.Controls.Add(this.deleteProduct);
@@ -304,7 +306,9 @@ namespace ClientApp
             this.Controls.Add(this.partsTitle);
             this.Controls.Add(this.dataPartsGrid);
             this.Controls.Add(this.mainTitle);
+            this.Name = "MainScreen";
             this.Text = "Main Screen";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainScreen_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataProductGrid)).EndInit();
             this.ResumeLayout(false);

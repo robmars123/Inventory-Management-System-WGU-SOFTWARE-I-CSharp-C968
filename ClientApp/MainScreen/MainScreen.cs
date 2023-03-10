@@ -4,21 +4,25 @@ namespace ClientApp
 {
     public partial class MainScreen : Form
     {
-   
-        
+        public AddPart.AddPart addPartForm;
+
         public MainScreen()
         {
             InitializeComponent();
-        }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void addPart_Click(object sender, EventArgs e)
         {
+            addPartForm = new AddPart.AddPart(this);
+            addPartForm.Show();
+            this.Visible = false;
+        }
 
+        private void MainScreen_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            System.Environment.Exit(0);
         }
     }
 }
