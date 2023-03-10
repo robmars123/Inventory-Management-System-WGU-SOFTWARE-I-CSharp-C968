@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClientApp.AddPart
+namespace ClientApp.Parts.AddPart
 {
     public partial class AddPart : Form
     {

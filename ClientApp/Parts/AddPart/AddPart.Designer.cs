@@ -1,4 +1,4 @@
-﻿namespace ClientApp.AddPart
+﻿namespace ClientApp.Parts.AddPart
 {
     partial class AddPart
     {
@@ -242,7 +242,9 @@
             this.Controls.Add(this.radioOutsourced);
             this.Controls.Add(this.radioInHouse);
             this.Controls.Add(this.addPartTitle);
+            this.Location = new System.Drawing.Point(505, 454);
             this.Name = "AddPart";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Part";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddPart_FormClosed);
             this.ResumeLayout(false);

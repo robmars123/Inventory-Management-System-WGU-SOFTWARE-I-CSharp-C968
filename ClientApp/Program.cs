@@ -12,7 +12,6 @@ namespace ClientApp
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new MainScreen());
-            Application.Run(new AddPart.AddPart());
         }
     }
 }

@@ -243,7 +243,9 @@
             this.Controls.Add(this.radioInHouse);
             this.Controls.Add(this.modifyPartTitle);
             this.Name = "ModifyPart";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Part";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ModifyPart_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
