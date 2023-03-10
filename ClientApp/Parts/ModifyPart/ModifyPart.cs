@@ -12,9 +12,21 @@ namespace ClientApp.Parts.ModifyPart
 {
     public partial class ModifyPart : Form
     {
+        private MainScreen mainScreen;
         public ModifyPart()
         {
             InitializeComponent();
+        }
+
+        public ModifyPart(MainScreen main)
+        {
+            mainScreen = main;
+            InitializeComponent();
+        }
+
+        private void ModifyPart_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            mainScreen.Show();
         }
     }
 }

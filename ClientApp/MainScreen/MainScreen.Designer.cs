@@ -238,6 +238,7 @@ namespace ClientApp
             this.modifyPart.TabIndex = 10;
             this.modifyPart.Text = "Modify";
             this.modifyPart.UseVisualStyleBackColor = true;
+            this.modifyPart.Click += new System.EventHandler(this.modifyPart_Click);
             // 
             // deletePart
             // 
@@ -307,6 +308,7 @@ namespace ClientApp
             this.Controls.Add(this.dataPartsGrid);
             this.Controls.Add(this.mainTitle);
             this.Name = "MainScreen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main Screen";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainScreen_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsGrid)).EndInit();
