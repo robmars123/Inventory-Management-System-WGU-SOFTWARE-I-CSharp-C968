@@ -246,7 +246,7 @@
             this.Controls.Add(this.radioInHouse);
             this.Controls.Add(this.addPartTitle);
             this.Name = "AddPart";
-            this.Text = "AddPart";
+            this.Text = "Part";
             this.ResumeLayout(false);
             this.PerformLayout();
 

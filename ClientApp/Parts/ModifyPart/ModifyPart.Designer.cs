@@ -46,7 +46,7 @@
             this.labelId = new System.Windows.Forms.Label();
             this.radioOutsourced = new System.Windows.Forms.RadioButton();
             this.radioInHouse = new System.Windows.Forms.RadioButton();
-            this.addPartTitle = new System.Windows.Forms.Label();
+            this.modifyPartTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -208,15 +208,15 @@
             this.radioInHouse.Text = "In-House";
             this.radioInHouse.UseVisualStyleBackColor = true;
             // 
-            // addPartTitle
+            // modifyPartTitle
             // 
-            this.addPartTitle.AutoSize = true;
-            this.addPartTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.addPartTitle.Location = new System.Drawing.Point(12, 9);
-            this.addPartTitle.Name = "addPartTitle";
-            this.addPartTitle.Size = new System.Drawing.Size(84, 25);
-            this.addPartTitle.TabIndex = 35;
-            this.addPartTitle.Text = "Add Part";
+            this.modifyPartTitle.AutoSize = true;
+            this.modifyPartTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.modifyPartTitle.Location = new System.Drawing.Point(12, 9);
+            this.modifyPartTitle.Name = "modifyPartTitle";
+            this.modifyPartTitle.Size = new System.Drawing.Size(109, 25);
+            this.modifyPartTitle.TabIndex = 35;
+            this.modifyPartTitle.Text = "Modify Part";
             // 
             // ModifyPart
             // 
@@ -241,9 +241,9 @@
             this.Controls.Add(this.labelId);
             this.Controls.Add(this.radioOutsourced);
             this.Controls.Add(this.radioInHouse);
-            this.Controls.Add(this.addPartTitle);
+            this.Controls.Add(this.modifyPartTitle);
             this.Name = "ModifyPart";
-            this.Text = "ModifyPart";
+            this.Text = "Part";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -269,6 +269,6 @@
         private Label labelId;
         private RadioButton radioOutsourced;
         private RadioButton radioInHouse;
-        private Label addPartTitle;
+        private Label modifyPartTitle;
     }
 }
