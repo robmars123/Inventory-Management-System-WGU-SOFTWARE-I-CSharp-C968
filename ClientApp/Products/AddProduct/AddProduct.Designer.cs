@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelAddProduct = new System.Windows.Forms.Label();
             this.searchBoxParts = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.partsTitle = new System.Windows.Forms.Label();
@@ -67,15 +67,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsAssociated)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // labelAddProduct
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(12, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(117, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Add Product";
+            this.labelAddProduct.AutoSize = true;
+            this.labelAddProduct.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelAddProduct.Location = new System.Drawing.Point(12, 14);
+            this.labelAddProduct.Name = "labelAddProduct";
+            this.labelAddProduct.Size = new System.Drawing.Size(117, 25);
+            this.labelAddProduct.TabIndex = 0;
+            this.labelAddProduct.Text = "Add Product";
             // 
             // searchBoxParts
             // 
@@ -374,7 +374,7 @@
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.partsTitle);
             this.Controls.Add(this.dataPartsGrid);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelAddProduct);
             this.Name = "AddProduct";
             this.Text = "Product";
             this.Load += new System.EventHandler(this.AddProduct_Load);
@@ -387,7 +387,7 @@
 
         #endregion
 
-        private Label label1;
+        private Label labelAddProduct;
         private TextBox searchBoxParts;
         private Button btnSearch;
         private Label partsTitle;
