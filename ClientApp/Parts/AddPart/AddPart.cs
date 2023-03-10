@@ -12,24 +12,21 @@ namespace ClientApp.AddPart
 {
     public partial class AddPart : Form
     {
+        private MainScreen mainScreen;
         public AddPart()
         {
             InitializeComponent();
         }
 
-        private void addPartTitle_Click(object sender, EventArgs e)
+        public AddPart(MainScreen main)
         {
-
+            mainScreen = main;
+            InitializeComponent();
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void AddPart_FormClosed(object sender, FormClosedEventArgs e)
         {
-
-        }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-
+            mainScreen.Show();
         }
     }
 }
