@@ -33,5 +33,10 @@ namespace ClientApp.Products.AddProduct
         {
 
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
