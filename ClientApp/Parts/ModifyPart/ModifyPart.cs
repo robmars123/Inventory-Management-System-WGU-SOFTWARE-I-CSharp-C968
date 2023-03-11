@@ -28,5 +28,10 @@ namespace ClientApp.Parts.ModifyPart
         {
             mainScreen.Show();
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -57,5 +57,10 @@ namespace ClientApp
         {
 
         }
+
+        private void exitBtn_Click(object sender, EventArgs e)
+        {
+            System.Environment.Exit(0);
+        }
     }
 }
