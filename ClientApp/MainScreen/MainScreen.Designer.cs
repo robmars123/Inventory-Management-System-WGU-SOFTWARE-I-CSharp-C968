@@ -371,6 +371,7 @@ namespace ClientApp
             this.Text = "Main Screen";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainScreen_FormClosed);
             this.Load += new System.EventHandler(this.MainScreen_Load);
+            this.Click += new System.EventHandler(this.MainScreen_Click);
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productPartBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataProductGrid)).EndInit();

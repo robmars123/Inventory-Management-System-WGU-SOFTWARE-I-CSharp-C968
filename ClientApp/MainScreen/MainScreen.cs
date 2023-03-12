@@ -19,7 +19,6 @@ namespace ClientApp
         private AddProduct addProductForm;
         private ModifyProduct modifyProductForm;
 
-
         public MainScreen()
         {
             InitializeComponent();
@@ -46,9 +45,17 @@ namespace ClientApp
                     selectedPart = item.DataBoundItem as ProductPart;
             }
 
-            modifyPartForm = new ModifyPart(this, selectedPart);
-            modifyPartForm.Show();
-            this.Visible = false;
+            if(selectedPart.PartID == 0)
+            {
+                string message = "Please select something to modify.";
+                MessageBox.Show(message);
+            }
+            else
+            {
+                modifyPartForm = new ModifyPart(this, selectedPart);
+                modifyPartForm.Show();
+                this.Visible = false;
+            }
         }
 
         private void modifyProduct_Click(object sender, EventArgs e)
@@ -91,10 +98,16 @@ namespace ClientApp
                 if(item.Selected)
                     selectedPart = item.DataBoundItem as ProductPart;
             }
-            if (selectedPart != null)
+            if (selectedPart.PartID == 0)
+            {
+                string message = "Please select something to delete.";
+                MessageBox.Show(message);
+            }
+            else
+            {
                 inventory.deletePart(selectedPart);
-
-            loadDataMainscreen();
+                loadDataMainscreen();
+            }
         }
 
         public void loadDataMainscreen()
@@ -103,7 +116,14 @@ namespace ClientApp
             using (var context = new InventoryDBContext())
             {
                 dataPartsGrid.DataSource = context.ProductParts.ToList();
+                dataPartsGrid.ClearSelection();
+                dataProductGrid.ClearSelection();
             }
+        }
+
+        private void MainScreen_Click(object sender, EventArgs e)
+        {
+            loadDataMainscreen();
         }
     }
 }
