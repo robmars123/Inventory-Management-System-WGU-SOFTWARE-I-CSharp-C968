@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.radioOutsourced = new System.Windows.Forms.RadioButton();
             this.radioInHouse = new System.Windows.Forms.RadioButton();
             this.addPartTitle = new System.Windows.Forms.Label();
@@ -41,12 +42,14 @@
             this.textBoxInventory = new System.Windows.Forms.TextBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.textBoxID = new System.Windows.Forms.TextBox();
+            this.productPartBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelMin = new System.Windows.Forms.Label();
             this.labelMax = new System.Windows.Forms.Label();
             this.labelPriceCost = new System.Windows.Forms.Label();
             this.labelInventory = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
             this.labelId = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.productPartBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // radioOutsourced
@@ -99,6 +102,7 @@
             this.btnSave.TabIndex = 33;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // textBoxMachineID
             // 
@@ -151,13 +155,21 @@
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(174, 23);
             this.textBoxName.TabIndex = 26;
+            this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
             // 
             // textBoxID
             // 
+            this.textBoxID.DataBindings.Add(new System.Windows.Forms.Binding("Tag", this.productPartBindingSource, "Name", true));
+            this.textBoxID.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productPartBindingSource, "Name", true));
             this.textBoxID.Location = new System.Drawing.Point(167, 60);
             this.textBoxID.Name = "textBoxID";
             this.textBoxID.Size = new System.Drawing.Size(100, 23);
             this.textBoxID.TabIndex = 25;
+            this.textBoxID.TextChanged += new System.EventHandler(this.textBoxID_TextChanged);
+            // 
+            // productPartBindingSource
+            // 
+            this.productPartBindingSource.DataSource = typeof(DAL.Models.ProductPart);
             // 
             // labelMin
             // 
@@ -249,6 +261,7 @@
             this.Text = "Part";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddPart_FormClosed);
             this.Load += new System.EventHandler(this.AddPart_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.productPartBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,5 +288,6 @@
         private Label labelInventory;
         private Label labelName;
         private Label labelId;
+        private BindingSource productPartBindingSource;
     }
 }

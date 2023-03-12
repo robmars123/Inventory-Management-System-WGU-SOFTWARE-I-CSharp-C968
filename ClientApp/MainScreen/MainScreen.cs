@@ -5,17 +5,20 @@ using ClientApp.Products.ModifyProduct;
 using DAL.DataContext;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.EntityFrameworkCore;
+using System.Windows.Forms;
+using DAL.Models;
 
 namespace ClientApp
 {
     public partial class MainScreen : Form
     {
-        InventoryDBContext db = new InventoryDBContext();
+        public Inventory inventory = new Inventory();
         private AddPart addPartForm;
         private ModifyPart modifyPartForm;
 
         private AddProduct addProductForm;
         private ModifyProduct modifyProductForm;
+
 
         public MainScreen()
         {
@@ -70,5 +73,30 @@ namespace ClientApp
             System.Environment.Exit(0);
         }
 
+
+        private void deletePart_Click(object sender, EventArgs e)
+        {
+            var selectedPart = new ProductPart();
+
+            //Foreach is being used for multi-select but SOFTWARE I – C# — C968 only 1 selection is required.
+            foreach (DataGridViewRow item in this.dataPartsGrid.SelectedRows)
+            {
+                if(item.Selected)
+                    selectedPart = item.DataBoundItem as ProductPart;
+            }
+            if (selectedPart != null)
+                inventory.deletePart(selectedPart);
+
+            loadDataMainscreen();
+        }
+
+        public void loadDataMainscreen()
+        {
+            //do what you do in load data in order to update data in datagrid
+            using (var context = new InventoryDBContext())
+            {
+                dataPartsGrid.DataSource = context.ProductParts.ToList();
+            }
+        }
     }
 }

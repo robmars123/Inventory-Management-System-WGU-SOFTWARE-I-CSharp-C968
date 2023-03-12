@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.DataContext;
 using DAL.Models.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Models
 {
@@ -34,12 +36,22 @@ namespace DAL.Models
 
         public void addPart(ProductPart part)
         {
-
+            using (var context = new InventoryDBContext())
+            {
+                context.ProductParts.Add(part);
+                context.SaveChanges();
+            }
         }
 
         public bool deletePart(ProductPart part)
         {
-            return false;
+            using (var context = new InventoryDBContext())
+            {
+                context.ChangeTracker.Clear();
+                context.ProductParts.Remove(part);
+                context.SaveChanges();
+                return true;
+            }
         }
 
         public ProductPart lookupPart(int id)
