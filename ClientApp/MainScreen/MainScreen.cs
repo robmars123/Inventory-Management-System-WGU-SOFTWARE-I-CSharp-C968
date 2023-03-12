@@ -105,8 +105,13 @@ namespace ClientApp
             }
             else
             {
-                inventory.deletePart(selectedPart);
-                loadDataMainscreen();
+                string message = "Are you sure you want to delete this part?";
+                DialogResult result = MessageBox.Show(message, null, MessageBoxButtons.YesNo);
+                if(result == DialogResult.Yes)
+                {
+                    inventory.deletePart(selectedPart);
+                    loadDataMainscreen();
+                }
             }
         }
 
