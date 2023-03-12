@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Models.Base;
 
 namespace DAL.Models
 {
     public class Inventory
     {
         public List<Product> Products { get; set; }
-        public List<Part> AllParts { get; set; }
+        public List<ProductPart> AllParts { get; set; }
 
         public void addProduct(Product product)
         {
@@ -31,22 +32,22 @@ namespace DAL.Models
 
         }
 
-        public void addPart(Part part)
+        public void addPart(ProductPart part)
         {
 
         }
 
-        public bool deletePart(Part part)
+        public bool deletePart(ProductPart part)
         {
             return false;
         }
 
-        public Part lookupPart(int id)
+        public ProductPart lookupPart(int id)
         {
             return null;
         }
 
-        public void updatePart(int id, Part part)
+        public void updatePart(int id, ProductPart part)
         {
 
         }
