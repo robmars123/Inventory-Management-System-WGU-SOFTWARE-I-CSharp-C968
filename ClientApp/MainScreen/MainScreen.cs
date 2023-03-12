@@ -1,14 +1,16 @@
-
-
 using ClientApp.Parts.ModifyPart;
 using ClientApp.Parts.AddPart;
 using ClientApp.Products.AddProduct;
 using ClientApp.Products.ModifyProduct;
+using DAL.DataContext;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClientApp
 {
     public partial class MainScreen : Form
     {
+        InventoryDBContext db = new InventoryDBContext();
         private AddPart addPartForm;
         private ModifyPart modifyPartForm;
 
@@ -55,12 +57,18 @@ namespace ClientApp
 
         private void MainScreen_Load(object sender, EventArgs e)
         {
-
+            using (var context = new InventoryDBContext())
+            {
+                context.ChangeTracker.LazyLoadingEnabled = false;
+                dataPartsGrid.DataSource = context.ProductParts.ToList();
+                dataProductGrid.DataSource = context.Products.ToList();
+            }
         }
 
         private void exitBtn_Click(object sender, EventArgs e)
         {
             System.Environment.Exit(0);
         }
+
     }
 }

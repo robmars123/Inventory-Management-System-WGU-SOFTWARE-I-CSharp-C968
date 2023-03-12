@@ -30,24 +30,13 @@ namespace ClientApp
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mainTitle = new System.Windows.Forms.Label();
             this.dataPartsGrid = new System.Windows.Forms.DataGridView();
-            this.PartID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PartName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Inventory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Min = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Max = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.partsTitle = new System.Windows.Forms.Label();
             this.searchParts = new System.Windows.Forms.Button();
             this.searchBoxParts = new System.Windows.Forms.TextBox();
             this.dataProductGrid = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productTitle = new System.Windows.Forms.Label();
             this.searchBoxProducts = new System.Windows.Forms.TextBox();
             this.searchProduct = new System.Windows.Forms.Button();
@@ -58,8 +47,16 @@ namespace ClientApp
             this.modifyProduct = new System.Windows.Forms.Button();
             this.addProduct = new System.Windows.Forms.Button();
             this.exitBtn = new System.Windows.Forms.Button();
+            this.inventoryDBContextBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.inventoryDBContextBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.inventoryDBContextBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataProductGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inventoryDBContextBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inventoryDBContextBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inventoryDBContextBindingSource2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // mainTitle
@@ -75,13 +72,6 @@ namespace ClientApp
             // dataPartsGrid
             // 
             this.dataPartsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataPartsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.PartID,
-            this.PartName,
-            this.Inventory,
-            this.Price,
-            this.Min,
-            this.Max});
             this.dataPartsGrid.Location = new System.Drawing.Point(27, 123);
             this.dataPartsGrid.Name = "dataPartsGrid";
             this.dataPartsGrid.RowHeadersVisible = false;
@@ -89,36 +79,6 @@ namespace ClientApp
             this.dataPartsGrid.RowTemplate.Height = 25;
             this.dataPartsGrid.Size = new System.Drawing.Size(603, 292);
             this.dataPartsGrid.TabIndex = 1;
-            // 
-            // PartID
-            // 
-            this.PartID.HeaderText = "PartID";
-            this.PartID.Name = "PartID";
-            // 
-            // PartName
-            // 
-            this.PartName.HeaderText = "Name";
-            this.PartName.Name = "PartName";
-            // 
-            // Inventory
-            // 
-            this.Inventory.HeaderText = "Inventory";
-            this.Inventory.Name = "Inventory";
-            // 
-            // Price
-            // 
-            this.Price.HeaderText = "Price";
-            this.Price.Name = "Price";
-            // 
-            // Min
-            // 
-            this.Min.HeaderText = "Min";
-            this.Min.Name = "Min";
-            // 
-            // Max
-            // 
-            this.Max.HeaderText = "Max";
-            this.Max.Name = "Max";
             // 
             // partsTitle
             // 
@@ -149,13 +109,6 @@ namespace ClientApp
             // dataProductGrid
             // 
             this.dataProductGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataProductGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6});
             this.dataProductGrid.Location = new System.Drawing.Point(702, 123);
             this.dataProductGrid.Name = "dataProductGrid";
             this.dataProductGrid.RowHeadersVisible = false;
@@ -163,36 +116,6 @@ namespace ClientApp
             this.dataProductGrid.RowTemplate.Height = 25;
             this.dataProductGrid.Size = new System.Drawing.Size(603, 292);
             this.dataProductGrid.TabIndex = 5;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "PartID";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Inventory";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Price";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Min";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.HeaderText = "Max";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             // 
             // productTitle
             // 
@@ -288,6 +211,22 @@ namespace ClientApp
             this.exitBtn.UseVisualStyleBackColor = true;
             this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
             // 
+            // inventoryDBContextBindingSource
+            // 
+            this.inventoryDBContextBindingSource.DataSource = typeof(DAL.DataContext.InventoryDBContext);
+            // 
+            // inventoryDBContextBindingSource1
+            // 
+            this.inventoryDBContextBindingSource1.DataSource = typeof(DAL.DataContext.InventoryDBContext);
+            // 
+            // inventoryDBContextBindingSource2
+            // 
+            this.inventoryDBContextBindingSource2.DataSource = typeof(DAL.DataContext.InventoryDBContext);
+            // 
+            // productBindingSource
+            // 
+            this.productBindingSource.DataSource = typeof(DAL.Models.Product);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -317,6 +256,10 @@ namespace ClientApp
             this.Load += new System.EventHandler(this.MainScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataProductGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inventoryDBContextBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inventoryDBContextBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inventoryDBContextBindingSource2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -330,12 +273,6 @@ namespace ClientApp
         private Button searchParts;
         private TextBox searchBoxParts;
         private DataGridView dataProductGrid;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private Label productTitle;
         private TextBox searchBoxProducts;
         private Button searchProduct;
@@ -345,12 +282,10 @@ namespace ClientApp
         private Button deleteProduct;
         private Button modifyProduct;
         private Button addProduct;
-        private DataGridViewTextBoxColumn PartID;
-        private DataGridViewTextBoxColumn PartName;
-        private DataGridViewTextBoxColumn Inventory;
-        private DataGridViewTextBoxColumn Price;
-        private DataGridViewTextBoxColumn Min;
-        private DataGridViewTextBoxColumn Max;
         private Button exitBtn;
+        private BindingSource inventoryDBContextBindingSource;
+        private BindingSource inventoryDBContextBindingSource1;
+        private BindingSource inventoryDBContextBindingSource2;
+        private BindingSource productBindingSource;
     }
 }
