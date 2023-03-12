@@ -67,6 +67,7 @@
             this.btnSave.TabIndex = 52;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // textBoxMachineID
             // 
@@ -122,8 +123,10 @@
             // 
             // textBoxID
             // 
+            this.textBoxID.Enabled = false;
             this.textBoxID.Location = new System.Drawing.Point(167, 60);
             this.textBoxID.Name = "textBoxID";
+            this.textBoxID.ReadOnly = true;
             this.textBoxID.Size = new System.Drawing.Size(100, 23);
             this.textBoxID.TabIndex = 44;
             // 
@@ -247,6 +250,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Part";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ModifyPart_FormClosed);
+            this.Load += new System.EventHandler(this.ModifyPart_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

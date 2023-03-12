@@ -61,7 +61,12 @@ namespace DAL.Models
 
         public void updatePart(int id, ProductPart part)
         {
-
+            using (var context = new InventoryDBContext())
+            {
+                context.ChangeTracker.Clear();
+                context.ProductParts.Update(part);
+                context.SaveChanges();
+            }
         }
     }
 }

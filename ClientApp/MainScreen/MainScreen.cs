@@ -39,7 +39,14 @@ namespace ClientApp
 
         private void modifyPart_Click(object sender, EventArgs e)
         {
-            modifyPartForm = new ModifyPart(this);
+            var selectedPart = new ProductPart(); 
+            foreach (DataGridViewRow item in this.dataPartsGrid.SelectedRows)
+            {
+                if (item.Selected)
+                    selectedPart = item.DataBoundItem as ProductPart;
+            }
+
+            modifyPartForm = new ModifyPart(this, selectedPart);
             modifyPartForm.Show();
             this.Visible = false;
         }
