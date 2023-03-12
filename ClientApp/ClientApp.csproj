@@ -18,10 +18,6 @@
     <ProjectReference Include="..\DAL\DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Properties\DataSources\" />
-  </ItemGroup>
-
   <ProjectExtensions><VisualStudio><UserProperties jsconfig1_1json__JsonSchema="https://cdn.jsdelivr.net/gh/roadrunner-server/roadrunner@latest/schemas/config/2.0.schema.json" /></VisualStudio></ProjectExtensions>
 
 </Project>
