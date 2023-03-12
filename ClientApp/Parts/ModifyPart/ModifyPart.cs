@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DAL.Models;
+using DAL.Models.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +15,8 @@ namespace ClientApp.Parts.ModifyPart
     public partial class ModifyPart : Form
     {
         private MainScreen mainScreen;
+        private Inventory inventory;
+        private ProductPart part = new ProductPart();
         public ModifyPart()
         {
             InitializeComponent();
@@ -24,6 +28,13 @@ namespace ClientApp.Parts.ModifyPart
             InitializeComponent();
         }
 
+        public ModifyPart(MainScreen main, ProductPart _part)
+        {
+            mainScreen = main;
+            part = _part;
+            InitializeComponent();
+        }
+
         private void ModifyPart_FormClosed(object sender, FormClosedEventArgs e)
         {
             mainScreen.Show();
@@ -31,6 +42,32 @@ namespace ClientApp.Parts.ModifyPart
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
+
+        private void ModifyPart_Load(object sender, EventArgs e)
+        {
+            textBoxID.Text = part.PartID.ToString();
+            textBoxName.Text = part.Name;
+            textBoxMax.Text = part.Max.ToString();
+            textBoxMin.Text = part.Min.ToString();
+            textBoxPriceCost.Text = part.Price.ToString();
+            textBoxInventory.Text = part.InStock.ToString();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            //fields of product to Modify
+            part.Name = textBoxName.Text;
+            part.Max = Convert.ToInt32(textBoxMax.Text);
+            part.Min = Convert.ToInt32(textBoxMin.Text);
+            part.Price = Convert.ToDecimal(textBoxPriceCost.Text);
+            part.InStock = Convert.ToInt32(textBoxInventory.Text);
+
+            mainScreen.inventory.updatePart(part.PartID,part);
+
+            mainScreen.loadDataMainscreen();
+
             this.Close();
         }
     }
