@@ -70,5 +70,69 @@ namespace ClientApp.Parts.ModifyPart
 
             this.Close();
         }
+
+        private void ControlsValidation()
+        {
+
+            if (string.IsNullOrEmpty(textBoxName.Text))
+                textBoxName.BackColor = Color.LightPink;
+            else
+                textBoxName.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxInventory.Text))
+                textBoxInventory.BackColor = Color.LightPink;
+            else
+                textBoxInventory.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxPriceCost.Text))
+                textBoxPriceCost.BackColor = Color.LightPink;
+            else
+                textBoxPriceCost.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxMax.Text))
+                textBoxMax.BackColor = Color.LightPink;
+            else
+                textBoxMax.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxMin.Text))
+                textBoxMin.BackColor = Color.LightPink;
+            else
+                textBoxMin.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxMachineID.Text))
+                textBoxMachineID.BackColor = Color.LightPink;
+            else
+                textBoxMachineID.BackColor = Color.White;
+        }
+
+        private void textBoxName_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
+
+        private void textBoxInventory_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
+
+        private void textBoxPriceCost_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
+
+        private void textBoxMax_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
+
+        private void textBoxMachineID_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
+
+        private void textBoxMin_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
     }
 }
