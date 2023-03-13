@@ -48,7 +48,7 @@
             this.searchBoxParts = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.partsTitle = new System.Windows.Forms.Label();
-            this.dataPartsGrid = new System.Windows.Forms.DataGridView();
+            this.dataCandidatePartsGrid = new System.Windows.Forms.DataGridView();
             this.PartID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PartName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Inventory = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,7 +64,7 @@
             this.labelId = new System.Windows.Forms.Label();
             this.btnAddPart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsAssociated)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataPartsGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataCandidatePartsGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSave
@@ -221,23 +221,23 @@
             this.partsTitle.TabIndex = 52;
             this.partsTitle.Text = "All Candidate Parts";
             // 
-            // dataPartsGrid
+            // dataCandidatePartsGrid
             // 
-            this.dataPartsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataPartsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataCandidatePartsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataCandidatePartsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PartID,
             this.PartName,
             this.Inventory,
             this.Price,
             this.Min,
             this.Max});
-            this.dataPartsGrid.Location = new System.Drawing.Point(415, 83);
-            this.dataPartsGrid.Name = "dataPartsGrid";
-            this.dataPartsGrid.RowHeadersVisible = false;
-            this.dataPartsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataPartsGrid.RowTemplate.Height = 25;
-            this.dataPartsGrid.Size = new System.Drawing.Size(603, 197);
-            this.dataPartsGrid.TabIndex = 51;
+            this.dataCandidatePartsGrid.Location = new System.Drawing.Point(415, 83);
+            this.dataCandidatePartsGrid.Name = "dataCandidatePartsGrid";
+            this.dataCandidatePartsGrid.RowHeadersVisible = false;
+            this.dataCandidatePartsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dataCandidatePartsGrid.RowTemplate.Height = 25;
+            this.dataCandidatePartsGrid.Size = new System.Drawing.Size(603, 197);
+            this.dataCandidatePartsGrid.TabIndex = 51;
             // 
             // PartID
             // 
@@ -367,7 +367,7 @@
             this.Controls.Add(this.searchBoxParts);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.partsTitle);
-            this.Controls.Add(this.dataPartsGrid);
+            this.Controls.Add(this.dataCandidatePartsGrid);
             this.Controls.Add(this.labelModifyProduct);
             this.Controls.Add(this.labelMin);
             this.Controls.Add(this.labelMax);
@@ -382,7 +382,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ModifyProduct_FormClosed);
             this.Load += new System.EventHandler(this.ModifyProduct_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsAssociated)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataPartsGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataCandidatePartsGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -410,7 +410,7 @@
         private TextBox searchBoxParts;
         private Button btnSearch;
         private Label partsTitle;
-        private DataGridView dataPartsGrid;
+        private DataGridView dataCandidatePartsGrid;
         private DataGridViewTextBoxColumn PartID;
         private DataGridViewTextBoxColumn PartName;
         private DataGridViewTextBoxColumn Inventory;

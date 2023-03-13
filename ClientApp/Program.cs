@@ -1,3 +1,5 @@
+using DAL.DataContext;
+
 namespace ClientApp
 {
     internal static class Program
@@ -13,5 +15,6 @@ namespace ClientApp
             ApplicationConfiguration.Initialize();
             Application.Run(new MainScreen());
         }
+
     }
 }

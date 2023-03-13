@@ -105,6 +105,7 @@ namespace ClientApp
             this.dataPartsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataPartsGrid.Size = new System.Drawing.Size(603, 292);
             this.dataPartsGrid.TabIndex = 1;
+
             // 
             // partIDDataGridViewTextBoxColumn
             // 
