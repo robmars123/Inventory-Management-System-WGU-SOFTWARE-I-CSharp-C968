@@ -110,6 +110,7 @@
             this.textBoxMachineID.Name = "textBoxMachineID";
             this.textBoxMachineID.Size = new System.Drawing.Size(100, 23);
             this.textBoxMachineID.TabIndex = 32;
+            this.textBoxMachineID.TextChanged += new System.EventHandler(this.textBoxMachineID_TextChanged);
             // 
             // labelMachineID
             // 
@@ -127,6 +128,7 @@
             this.textBoxMin.Name = "textBoxMin";
             this.textBoxMin.Size = new System.Drawing.Size(100, 23);
             this.textBoxMin.TabIndex = 30;
+            this.textBoxMin.TextChanged += new System.EventHandler(this.textBoxMin_TextChanged);
             // 
             // textBoxMax
             // 
@@ -134,6 +136,7 @@
             this.textBoxMax.Name = "textBoxMax";
             this.textBoxMax.Size = new System.Drawing.Size(100, 23);
             this.textBoxMax.TabIndex = 29;
+            this.textBoxMax.TextChanged += new System.EventHandler(this.textBoxMax_TextChanged);
             // 
             // textBoxPriceCost
             // 
@@ -141,6 +144,7 @@
             this.textBoxPriceCost.Name = "textBoxPriceCost";
             this.textBoxPriceCost.Size = new System.Drawing.Size(174, 23);
             this.textBoxPriceCost.TabIndex = 28;
+            this.textBoxPriceCost.TextChanged += new System.EventHandler(this.textBoxPriceCost_TextChanged);
             // 
             // textBoxInventory
             // 
@@ -148,6 +152,7 @@
             this.textBoxInventory.Name = "textBoxInventory";
             this.textBoxInventory.Size = new System.Drawing.Size(174, 23);
             this.textBoxInventory.TabIndex = 27;
+            this.textBoxInventory.TextChanged += new System.EventHandler(this.textBoxInventory_TextChanged);
             // 
             // textBoxName
             // 

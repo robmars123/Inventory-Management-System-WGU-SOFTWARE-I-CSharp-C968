@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ClientApp.Parts.AddPart
 {
@@ -35,7 +36,7 @@ namespace ClientApp.Parts.AddPart
 
         private void AddPart_Load(object sender, EventArgs e)
         {
-
+            ControlsValidation();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -45,12 +46,12 @@ namespace ClientApp.Parts.AddPart
 
         private void textBoxID_TextChanged(object sender, EventArgs e)
         {
-
+            ControlsValidation();
         }
 
         private void textBoxName_TextChanged(object sender, EventArgs e)
         {
-
+            ControlsValidation();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -67,6 +68,65 @@ namespace ClientApp.Parts.AddPart
             mainScreen.loadDataMainscreen();
 
             this.Close();
+        }
+
+        private void textBoxInventory_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
+
+        private void ControlsValidation()
+        {
+
+            if (string.IsNullOrEmpty(textBoxName.Text))
+                textBoxName.BackColor = Color.LightPink;
+            else
+                textBoxName.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxInventory.Text))
+                textBoxInventory.BackColor = Color.LightPink;
+            else
+                textBoxInventory.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxPriceCost.Text))
+                textBoxPriceCost.BackColor = Color.LightPink;
+            else
+                textBoxPriceCost.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxMax.Text))
+                textBoxMax.BackColor = Color.LightPink;
+            else
+                textBoxMax.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxMin.Text))
+                textBoxMin.BackColor = Color.LightPink;
+            else
+                textBoxMin.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxMachineID.Text))
+                textBoxMachineID.BackColor = Color.LightPink;
+            else
+                textBoxMachineID.BackColor = Color.White;
+        }
+
+        private void textBoxPriceCost_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
+
+        private void textBoxMax_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
+
+        private void textBoxMin_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
+
+        private void textBoxMachineID_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
         }
     }
 }
