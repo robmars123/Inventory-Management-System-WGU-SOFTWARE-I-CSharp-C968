@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Windows.Forms;
 using DAL.Models;
 using BusinessLogic.Services;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ClientApp
 {
@@ -167,6 +168,56 @@ namespace ClientApp
                     loadDataMainscreen();
                 }
             }
+        }
+
+        private void searchBoxParts_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void searchParts_Click(object sender, EventArgs e)
+        {
+            var selectedParts = new List<ProductPart>();
+            var searchedTerm = searchBoxParts.Text.Trim().ToLower();
+
+            var list = _services.Parts();
+            selectedParts = list.Where(x => x.Name.ToLower().Contains(searchedTerm)).ToList();
+
+            if (!searchBoxParts.Text.IsNullOrEmpty())
+                dataPartsGrid.DataSource = selectedParts;
+            else
+                dataPartsGrid.DataSource = _services.Parts();//restore list if no search term applied.
+
+            if (!selectedParts.Any())
+            {
+                string message = "Part could not be found.";
+                MessageBox.Show(message);
+            }
+
+            searchBoxParts.Text = String.Empty;
+
+        }
+
+        private void searchProduct_Click(object sender, EventArgs e)
+        {
+            var selectedProducts = new List<Product>();
+            var searchedTerm = searchBoxProducts.Text.Trim().ToLower();
+
+            var list = _services.Products();
+            selectedProducts = list.Where(x => x.Name.ToLower().Contains(searchedTerm)).ToList();
+
+            if (!searchBoxProducts.Text.IsNullOrEmpty())
+                dataProductGrid.DataSource = selectedProducts;
+            else
+                dataProductGrid.DataSource = _services.Products();//restore list if no search term applied.
+
+            if (!selectedProducts.Any())
+            {
+                string message = "Product could not be found.";
+                MessageBox.Show(message);
+            }
+
+            searchBoxProducts.Text = String.Empty;
         }
     }
 }

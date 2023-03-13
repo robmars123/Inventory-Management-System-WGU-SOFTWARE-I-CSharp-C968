@@ -164,6 +164,7 @@ namespace ClientApp
             this.searchParts.TabIndex = 3;
             this.searchParts.Text = "Search";
             this.searchParts.UseVisualStyleBackColor = true;
+            this.searchParts.Click += new System.EventHandler(this.searchParts_Click);
             // 
             // searchBoxParts
             // 
@@ -171,6 +172,7 @@ namespace ClientApp
             this.searchBoxParts.Name = "searchBoxParts";
             this.searchBoxParts.Size = new System.Drawing.Size(154, 23);
             this.searchBoxParts.TabIndex = 4;
+            this.searchBoxParts.TextChanged += new System.EventHandler(this.searchBoxParts_TextChanged);
             // 
             // dataProductGrid
             // 
@@ -258,6 +260,7 @@ namespace ClientApp
             this.searchProduct.TabIndex = 7;
             this.searchProduct.Text = "Search";
             this.searchProduct.UseVisualStyleBackColor = true;
+            this.searchProduct.Click += new System.EventHandler(this.searchProduct_Click);
             // 
             // addPart
             // 
