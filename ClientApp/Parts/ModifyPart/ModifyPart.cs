@@ -1,14 +1,4 @@
 ﻿using DAL.Models;
-using DAL.Models.Base;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ClientApp.Parts.ModifyPart
 {
@@ -133,6 +123,18 @@ namespace ClientApp.Parts.ModifyPart
         private void textBoxMin_TextChanged(object sender, EventArgs e)
         {
             ControlsValidation();
+        }
+
+        private void radioInHouseModify_CheckedChanged(object sender, EventArgs e)
+        {
+            labelMachineID.Show();
+            labelCompanyName.Visible = false;
+        }
+
+        private void radioOutsourcedModify_CheckedChanged(object sender, EventArgs e)
+        {
+            labelCompanyName.Show();
+            labelMachineID.Visible = false;
         }
     }
 }
