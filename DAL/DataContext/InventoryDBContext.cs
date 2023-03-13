@@ -13,13 +13,14 @@ namespace DAL.DataContext
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionstring = "Server=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"D:\\WGU - 2022 - 2023\\Software I - C# C968\\Inventory Management System App\\Project Solution\\Inventory Management System\\DAL\\AppData\\InventoryDB.mdf\";Integrated Security=True;Database=InventoryDB";
+            //string connectionstring = "Server=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"D:\\WGU - 2022 - 2023\\Software I - C# C968\\Inventory Management System App\\Project Solution\\Inventory Management System\\DAL\\AppData\\InventoryDB.mdf\";Integrated Security=True;Database=InventoryDB";
+            string connectionstring = "Server=(LocalDB)\\MSSQLLocalDB;attachdbfilename=\"C:\\Inventory Management System\\ClientApp\\AppData\\InventoryDB.mdf\";integrated security=True;";
+            //string connectionstring = "Server=(LocalDB)\\MSSQLLocalDB;attachdbfilename=|DataDirectory|\\InventoryDB.mdf;Integrated Security=True;User Instance=False;";
             optionsBuilder.UseSqlServer(connectionstring, builder =>
             {
                 builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
             });
             base.OnConfiguring(optionsBuilder);
-           // optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=InventoryDB");
         }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductPart> ProductParts { get; set; }
