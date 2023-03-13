@@ -32,13 +32,7 @@
             this.searchBoxParts = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.partsTitle = new System.Windows.Forms.Label();
-            this.dataPartsGrid = new System.Windows.Forms.DataGridView();
-            this.PartID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PartName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Inventory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Min = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Max = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataCandidatePartsGrid = new System.Windows.Forms.DataGridView();
             this.btnAddPart = new System.Windows.Forms.Button();
             this.textBoxMin = new System.Windows.Forms.TextBox();
             this.textBoxMax = new System.Windows.Forms.TextBox();
@@ -54,16 +48,10 @@
             this.labelId = new System.Windows.Forms.Label();
             this.labelPartsAssociated = new System.Windows.Forms.Label();
             this.dataPartsAssociated = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataPartsGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataCandidatePartsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsAssociated)).BeginInit();
             this.SuspendLayout();
             // 
@@ -103,53 +91,16 @@
             this.partsTitle.TabIndex = 6;
             this.partsTitle.Text = "All Candidate Parts";
             // 
-            // dataPartsGrid
+            // dataCandidatePartsGrid
             // 
-            this.dataPartsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataPartsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.PartID,
-            this.PartName,
-            this.Inventory,
-            this.Price,
-            this.Min,
-            this.Max});
-            this.dataPartsGrid.Location = new System.Drawing.Point(415, 79);
-            this.dataPartsGrid.Name = "dataPartsGrid";
-            this.dataPartsGrid.RowHeadersVisible = false;
-            this.dataPartsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataPartsGrid.RowTemplate.Height = 25;
-            this.dataPartsGrid.Size = new System.Drawing.Size(603, 197);
-            this.dataPartsGrid.TabIndex = 5;
-            // 
-            // PartID
-            // 
-            this.PartID.HeaderText = "PartID";
-            this.PartID.Name = "PartID";
-            // 
-            // PartName
-            // 
-            this.PartName.HeaderText = "Name";
-            this.PartName.Name = "PartName";
-            // 
-            // Inventory
-            // 
-            this.Inventory.HeaderText = "Inventory";
-            this.Inventory.Name = "Inventory";
-            // 
-            // Price
-            // 
-            this.Price.HeaderText = "Price";
-            this.Price.Name = "Price";
-            // 
-            // Min
-            // 
-            this.Min.HeaderText = "Min";
-            this.Min.Name = "Min";
-            // 
-            // Max
-            // 
-            this.Max.HeaderText = "Max";
-            this.Max.Name = "Max";
+            this.dataCandidatePartsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataCandidatePartsGrid.Location = new System.Drawing.Point(415, 79);
+            this.dataCandidatePartsGrid.Name = "dataCandidatePartsGrid";
+            this.dataCandidatePartsGrid.RowHeadersVisible = false;
+            this.dataCandidatePartsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dataCandidatePartsGrid.RowTemplate.Height = 25;
+            this.dataCandidatePartsGrid.Size = new System.Drawing.Size(603, 197);
+            this.dataCandidatePartsGrid.TabIndex = 5;
             // 
             // btnAddPart
             // 
@@ -197,6 +148,7 @@
             // 
             // textBoxID
             // 
+            this.textBoxID.Enabled = false;
             this.textBoxID.Location = new System.Drawing.Point(158, 177);
             this.textBoxID.Name = "textBoxID";
             this.textBoxID.Size = new System.Drawing.Size(100, 23);
@@ -275,13 +227,6 @@
             // dataPartsAssociated
             // 
             this.dataPartsAssociated.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataPartsAssociated.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6});
             this.dataPartsAssociated.Location = new System.Drawing.Point(415, 376);
             this.dataPartsAssociated.Name = "dataPartsAssociated";
             this.dataPartsAssociated.RowHeadersVisible = false;
@@ -289,36 +234,6 @@
             this.dataPartsAssociated.RowTemplate.Height = 25;
             this.dataPartsAssociated.Size = new System.Drawing.Size(603, 197);
             this.dataPartsAssociated.TabIndex = 45;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "PartID";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Inventory";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Price";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Min";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.HeaderText = "Max";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             // 
             // btnDelete
             // 
@@ -374,14 +289,14 @@
             this.Controls.Add(this.searchBoxParts);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.partsTitle);
-            this.Controls.Add(this.dataPartsGrid);
+            this.Controls.Add(this.dataCandidatePartsGrid);
             this.Controls.Add(this.labelAddProduct);
             this.Name = "AddProduct";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Product";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddProduct_FormClosed);
             this.Load += new System.EventHandler(this.AddProduct_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataPartsGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataCandidatePartsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataPartsAssociated)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -394,13 +309,7 @@
         private TextBox searchBoxParts;
         private Button btnSearch;
         private Label partsTitle;
-        private DataGridView dataPartsGrid;
-        private DataGridViewTextBoxColumn PartID;
-        private DataGridViewTextBoxColumn PartName;
-        private DataGridViewTextBoxColumn Inventory;
-        private DataGridViewTextBoxColumn Price;
-        private DataGridViewTextBoxColumn Min;
-        private DataGridViewTextBoxColumn Max;
+        private DataGridView dataCandidatePartsGrid;
         private Button btnAddPart;
         private TextBox textBoxMin;
         private TextBox textBoxMax;
@@ -416,12 +325,6 @@
         private Label labelId;
         private Label labelPartsAssociated;
         private DataGridView dataPartsAssociated;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private Button btnDelete;
         private Button btnCancel;
         private Button btnSave;

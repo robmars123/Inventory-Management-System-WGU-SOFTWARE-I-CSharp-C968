@@ -33,8 +33,6 @@ namespace DAL.DataContext
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ProductPart>().ToTable("ProductPart");
-            //modelBuilder.Entity<Product>().ToTable("Product");//.HasKey("ProductID");
-
         }
 
     }

@@ -7,12 +7,15 @@ using System.Security.Cryptography.X509Certificates;
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Forms;
 using DAL.Models;
+using BusinessLogic.Services;
 
 namespace ClientApp
 {
     public partial class MainScreen : Form
     {
         public Inventory inventory = new Inventory();
+        private InventoryService _services = new InventoryService();
+
         private AddPart addPartForm;
         private ModifyPart modifyPartForm;
 
@@ -74,12 +77,8 @@ namespace ClientApp
 
         private void MainScreen_Load(object sender, EventArgs e)
         {
-            using (var context = new InventoryDBContext())
-            {
-                context.ChangeTracker.LazyLoadingEnabled = false;
-                dataPartsGrid.DataSource = context.ProductParts.ToList();
-                dataProductGrid.DataSource = context.Products.ToList();
-            }
+            dataPartsGrid.DataSource = _services.Parts();
+            dataProductGrid.DataSource = _services.Products();
         }
 
         private void exitBtn_Click(object sender, EventArgs e)
@@ -118,17 +117,17 @@ namespace ClientApp
         public void loadDataMainscreen()
         {
             //do what you do in load data in order to update data in datagrid
-            using (var context = new InventoryDBContext())
-            {
-                dataPartsGrid.DataSource = context.ProductParts.ToList();
+
+                dataPartsGrid.DataSource = _services.Parts();
                 dataPartsGrid.ClearSelection();
                 dataProductGrid.ClearSelection();
-            }
+
         }
 
         private void MainScreen_Click(object sender, EventArgs e)
         {
             loadDataMainscreen();
         }
+
     }
 }
