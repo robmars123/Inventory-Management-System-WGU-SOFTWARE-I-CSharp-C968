@@ -63,9 +63,24 @@ namespace ClientApp
 
         private void modifyProduct_Click(object sender, EventArgs e)
         {
-            modifyProductForm = new ModifyProduct(this);
-            modifyProductForm.Show();
-            this.Visible = false;
+            var selectedProduct = new Product();
+            foreach (DataGridViewRow item in this.dataProductGrid.SelectedRows)
+            {
+                if (item.Selected)
+                    selectedProduct = item.DataBoundItem as Product;
+            }
+
+            if (selectedProduct.ProductID == 0)
+            {
+                string message = "Please select something to modify.";
+                MessageBox.Show(message);
+            }
+            else
+            {
+                modifyProductForm = new ModifyProduct(this, selectedProduct);
+                modifyProductForm.Show();
+                this.Visible = false;
+            }
         }
 
         private void addProduct_Click(object sender, EventArgs e)
@@ -127,5 +142,31 @@ namespace ClientApp
             loadDataMainscreen();
         }
 
+        private void deleteProduct_Click(object sender, EventArgs e)
+        {
+            var selectedProduct = new Product();
+
+            //Foreach is being used for multi-select but SOFTWARE I – C# — C968 only 1 selection is required.
+            foreach (DataGridViewRow item in this.dataProductGrid.SelectedRows)
+            {
+                if (item.Selected)
+                    selectedProduct = item.DataBoundItem as Product;
+            }
+            if (selectedProduct.ProductID == 0)
+            {
+                string message = "Please select something to delete.";
+                MessageBox.Show(message);
+            }
+            else
+            {
+                string message = "Are you sure you want to delete this product?";
+                DialogResult result = MessageBox.Show(message, null, MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    inventory.removeProduct(selectedProduct.ProductID);
+                    loadDataMainscreen();
+                }
+            }
+        }
     }
 }

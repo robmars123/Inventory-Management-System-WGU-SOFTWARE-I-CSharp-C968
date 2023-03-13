@@ -25,7 +25,18 @@ namespace DAL.Models
 
         public bool removeProduct(int id)
         {
-            return false; 
+            using (var context = new InventoryDBContext())
+            {
+                var product = context.Products.Find(id);
+                if (product != null)
+                {
+                    context.ChangeTracker.Clear();
+                    context.Products.Remove(product);
+                    context.SaveChanges();
+                    return true;
+                }
+                return false; // if product is null
+            }
         }
 
         public Product lookupProduct(int id)
@@ -35,7 +46,12 @@ namespace DAL.Models
 
         public void updateProduct(int id, Product product)
         {
-
+            using (var context = new InventoryDBContext())
+            {
+                context.ChangeTracker.Clear();
+                context.Products.Update(product);
+                context.SaveChanges();
+            }
         }
 
         public void addPart(ProductPart part)
