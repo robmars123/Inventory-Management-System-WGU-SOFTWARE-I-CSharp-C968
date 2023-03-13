@@ -50,6 +50,7 @@
             this.labelName = new System.Windows.Forms.Label();
             this.labelId = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
+            this.textBoxCompanyName = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.productPartBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -124,7 +125,6 @@
             this.labelMachineID.Size = new System.Drawing.Size(88, 21);
             this.labelMachineID.TabIndex = 31;
             this.labelMachineID.Text = "Machine ID";
-
             // 
             // textBoxMin
             // 
@@ -251,13 +251,21 @@
             this.labelCompanyName.TabIndex = 35;
             this.labelCompanyName.Text = "Company Name";
             this.labelCompanyName.Visible = false;
-
+            // 
+            // textBoxCompanyName
+            // 
+            this.textBoxCompanyName.Location = new System.Drawing.Point(167, 231);
+            this.textBoxCompanyName.Name = "textBoxCompanyName";
+            this.textBoxCompanyName.Size = new System.Drawing.Size(100, 23);
+            this.textBoxCompanyName.TabIndex = 36;
+            this.textBoxCompanyName.Visible = false;
             // 
             // AddPart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(495, 364);
+            this.Controls.Add(this.textBoxCompanyName);
             this.Controls.Add(this.labelCompanyName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -313,5 +321,6 @@
         private Label labelId;
         private BindingSource productPartBindingSource;
         private Label labelCompanyName;
+        private TextBox textBoxCompanyName;
     }
 }
