@@ -65,6 +65,8 @@ namespace ClientApp.Parts.AddPart
             part.Min = Convert.ToInt32(textBoxMin.Text);
             part.Price = Convert.ToDecimal(textBoxPriceCost.Text);
             part.InStock = Convert.ToInt32(textBoxInventory.Text);
+            part.MachineID = Convert.ToInt32(textBoxMachineID.Text);
+            part.CompanyName = textBoxCompanyName.Text;
 
             mainScreen.inventory.addPart(part);
 
@@ -136,12 +138,14 @@ namespace ClientApp.Parts.AddPart
         {
             labelMachineID.Show();
             labelCompanyName.Visible = false;
+            textBoxCompanyName.Visible=false;
         }
 
         private void radioOutsourced_CheckedChanged(object sender, EventArgs e)
         {
             labelCompanyName.Show();
             labelMachineID.Visible = false;
+            textBoxMachineID.Visible=false;
         }
     }
 }

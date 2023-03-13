@@ -48,6 +48,7 @@
             this.radioInHouseModify = new System.Windows.Forms.RadioButton();
             this.modifyPartTitle = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
+            this.textBoxCompanyName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -242,11 +243,20 @@
             this.labelCompanyName.Text = "Company Name";
             this.labelCompanyName.Visible = false;
             // 
+            // textBoxCompanyName
+            // 
+            this.textBoxCompanyName.Location = new System.Drawing.Point(167, 231);
+            this.textBoxCompanyName.Name = "textBoxCompanyName";
+            this.textBoxCompanyName.Size = new System.Drawing.Size(100, 23);
+            this.textBoxCompanyName.TabIndex = 55;
+            this.textBoxCompanyName.Visible = false;
+            // 
             // ModifyPart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(495, 364);
+            this.Controls.Add(this.textBoxCompanyName);
             this.Controls.Add(this.labelCompanyName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -299,5 +309,6 @@
         private RadioButton radioInHouseModify;
         private Label modifyPartTitle;
         private Label labelCompanyName;
+        private TextBox textBoxCompanyName;
     }
 }
