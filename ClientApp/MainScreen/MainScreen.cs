@@ -116,12 +116,10 @@ namespace ClientApp
 
         public void loadDataMainscreen()
         {
-            //do what you do in load data in order to update data in datagrid
-
                 dataPartsGrid.DataSource = _services.Parts();
+                dataProductGrid.DataSource = _services.Products();
                 dataPartsGrid.ClearSelection();
                 dataProductGrid.ClearSelection();
-
         }
 
         private void MainScreen_Click(object sender, EventArgs e)

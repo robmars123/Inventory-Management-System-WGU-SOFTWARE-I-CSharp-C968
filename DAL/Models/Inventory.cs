@@ -16,7 +16,11 @@ namespace DAL.Models
 
         public void addProduct(Product product)
         {
-
+            using (var context = new InventoryDBContext())
+            {
+                context.Products.Add(product);
+                context.SaveChanges();
+            }
         }
 
         public bool removeProduct(int id)
