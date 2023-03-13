@@ -161,6 +161,7 @@
             // 
             this.textBoxID.DataBindings.Add(new System.Windows.Forms.Binding("Tag", this.productPartBindingSource, "Name", true));
             this.textBoxID.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productPartBindingSource, "Name", true));
+            this.textBoxID.Enabled = false;
             this.textBoxID.Location = new System.Drawing.Point(167, 60);
             this.textBoxID.Name = "textBoxID";
             this.textBoxID.Size = new System.Drawing.Size(100, 23);

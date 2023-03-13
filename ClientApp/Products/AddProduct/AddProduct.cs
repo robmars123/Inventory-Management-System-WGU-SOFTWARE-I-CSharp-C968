@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.Services;
 using DAL.DataContext;
 using DAL.Models;
+using DAL.Models.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,8 @@ namespace ClientApp.Products.AddProduct
     {
         public Inventory inventory = new Inventory();
         private InventoryService _services = new InventoryService();
+
+        private Product product = new Product();
         private MainScreen mainScreen;
         public AddProduct()
         {
@@ -42,6 +45,22 @@ namespace ClientApp.Products.AddProduct
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            //fields
+            product.Name = textBoxName.Text;
+            product.Max = Convert.ToInt32(textBoxMax.Text);
+            product.Min = Convert.ToInt32(textBoxMin.Text);
+            product.Price = Convert.ToDecimal(textBoxPriceCost.Text);
+            product.InStock = Convert.ToInt32(textBoxInventory.Text);
+
+            mainScreen.inventory.addProduct(product);
+
+            mainScreen.loadDataMainscreen();
+
             this.Close();
         }
     }
