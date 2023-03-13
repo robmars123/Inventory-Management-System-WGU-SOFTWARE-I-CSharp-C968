@@ -105,7 +105,6 @@ namespace ClientApp
             this.dataPartsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataPartsGrid.Size = new System.Drawing.Size(603, 292);
             this.dataPartsGrid.TabIndex = 1;
-
             // 
             // partIDDataGridViewTextBoxColumn
             // 
@@ -298,6 +297,7 @@ namespace ClientApp
             this.deleteProduct.TabIndex = 14;
             this.deleteProduct.Text = "Delete";
             this.deleteProduct.UseVisualStyleBackColor = true;
+            this.deleteProduct.Click += new System.EventHandler(this.deleteProduct_Click);
             // 
             // modifyProduct
             // 
