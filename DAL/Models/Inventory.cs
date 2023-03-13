@@ -41,6 +41,7 @@ namespace DAL.Models
 
         public Product lookupProduct(int id)
         {
+
             return null;
         }
 
@@ -76,6 +77,14 @@ namespace DAL.Models
 
         public ProductPart lookupPart(int id)
         {
+            //using (var context = new InventoryDBContext())
+            //{
+            //    context.ChangeTracker.Clear();
+            //    context.ProductParts.Update(part);
+            //    context.SaveChanges();
+            //}
+
+            
             return null;
         }
 
