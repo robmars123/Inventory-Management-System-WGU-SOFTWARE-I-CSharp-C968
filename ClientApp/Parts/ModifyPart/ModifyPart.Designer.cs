@@ -44,9 +44,10 @@
             this.labelInventory = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
             this.labelId = new System.Windows.Forms.Label();
-            this.radioOutsourced = new System.Windows.Forms.RadioButton();
-            this.radioInHouse = new System.Windows.Forms.RadioButton();
+            this.radioOutsourcedModify = new System.Windows.Forms.RadioButton();
+            this.radioInHouseModify = new System.Windows.Forms.RadioButton();
             this.modifyPartTitle = new System.Windows.Forms.Label();
+            this.labelCompanyName = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -196,27 +197,29 @@
             this.labelId.TabIndex = 38;
             this.labelId.Text = "ID";
             // 
-            // radioOutsourced
+            // radioOutsourcedModify
             // 
-            this.radioOutsourced.AutoSize = true;
-            this.radioOutsourced.Location = new System.Drawing.Point(389, 15);
-            this.radioOutsourced.Name = "radioOutsourced";
-            this.radioOutsourced.Size = new System.Drawing.Size(87, 19);
-            this.radioOutsourced.TabIndex = 37;
-            this.radioOutsourced.TabStop = true;
-            this.radioOutsourced.Text = "Outsourced";
-            this.radioOutsourced.UseVisualStyleBackColor = true;
+            this.radioOutsourcedModify.AutoSize = true;
+            this.radioOutsourcedModify.Location = new System.Drawing.Point(389, 15);
+            this.radioOutsourcedModify.Name = "radioOutsourcedModify";
+            this.radioOutsourcedModify.Size = new System.Drawing.Size(87, 19);
+            this.radioOutsourcedModify.TabIndex = 37;
+            this.radioOutsourcedModify.TabStop = true;
+            this.radioOutsourcedModify.Text = "Outsourced";
+            this.radioOutsourcedModify.UseVisualStyleBackColor = true;
+            this.radioOutsourcedModify.CheckedChanged += new System.EventHandler(this.radioOutsourcedModify_CheckedChanged);
             // 
-            // radioInHouse
+            // radioInHouseModify
             // 
-            this.radioInHouse.AutoSize = true;
-            this.radioInHouse.Location = new System.Drawing.Point(278, 15);
-            this.radioInHouse.Name = "radioInHouse";
-            this.radioInHouse.Size = new System.Drawing.Size(74, 19);
-            this.radioInHouse.TabIndex = 36;
-            this.radioInHouse.TabStop = true;
-            this.radioInHouse.Text = "In-House";
-            this.radioInHouse.UseVisualStyleBackColor = true;
+            this.radioInHouseModify.AutoSize = true;
+            this.radioInHouseModify.Location = new System.Drawing.Point(278, 15);
+            this.radioInHouseModify.Name = "radioInHouseModify";
+            this.radioInHouseModify.Size = new System.Drawing.Size(74, 19);
+            this.radioInHouseModify.TabIndex = 36;
+            this.radioInHouseModify.TabStop = true;
+            this.radioInHouseModify.Text = "In-House";
+            this.radioInHouseModify.UseVisualStyleBackColor = true;
+            this.radioInHouseModify.CheckedChanged += new System.EventHandler(this.radioInHouseModify_CheckedChanged);
             // 
             // modifyPartTitle
             // 
@@ -228,11 +231,23 @@
             this.modifyPartTitle.TabIndex = 35;
             this.modifyPartTitle.Text = "Modify Part";
             // 
+            // labelCompanyName
+            // 
+            this.labelCompanyName.AutoSize = true;
+            this.labelCompanyName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelCompanyName.Location = new System.Drawing.Point(20, 229);
+            this.labelCompanyName.Name = "labelCompanyName";
+            this.labelCompanyName.Size = new System.Drawing.Size(123, 21);
+            this.labelCompanyName.TabIndex = 54;
+            this.labelCompanyName.Text = "Company Name";
+            this.labelCompanyName.Visible = false;
+            // 
             // ModifyPart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(495, 364);
+            this.Controls.Add(this.labelCompanyName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.textBoxMachineID);
@@ -249,8 +264,8 @@
             this.Controls.Add(this.labelInventory);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.labelId);
-            this.Controls.Add(this.radioOutsourced);
-            this.Controls.Add(this.radioInHouse);
+            this.Controls.Add(this.radioOutsourcedModify);
+            this.Controls.Add(this.radioInHouseModify);
             this.Controls.Add(this.modifyPartTitle);
             this.Name = "ModifyPart";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -280,8 +295,9 @@
         private Label labelInventory;
         private Label labelName;
         private Label labelId;
-        private RadioButton radioOutsourced;
-        private RadioButton radioInHouse;
+        private RadioButton radioOutsourcedModify;
+        private RadioButton radioInHouseModify;
         private Label modifyPartTitle;
+        private Label labelCompanyName;
     }
 }

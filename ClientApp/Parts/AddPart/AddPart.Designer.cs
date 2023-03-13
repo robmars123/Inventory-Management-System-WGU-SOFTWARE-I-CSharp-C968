@@ -49,6 +49,7 @@
             this.labelInventory = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
             this.labelId = new System.Windows.Forms.Label();
+            this.labelCompanyName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.productPartBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,6 +63,7 @@
             this.radioOutsourced.TabStop = true;
             this.radioOutsourced.Text = "Outsourced";
             this.radioOutsourced.UseVisualStyleBackColor = true;
+            this.radioOutsourced.CheckedChanged += new System.EventHandler(this.radioOutsourced_CheckedChanged);
             // 
             // radioInHouse
             // 
@@ -73,6 +75,7 @@
             this.radioInHouse.TabStop = true;
             this.radioInHouse.Text = "In-House";
             this.radioInHouse.UseVisualStyleBackColor = true;
+            this.radioInHouse.CheckedChanged += new System.EventHandler(this.radioInHouse_CheckedChanged);
             // 
             // addPartTitle
             // 
@@ -121,6 +124,7 @@
             this.labelMachineID.Size = new System.Drawing.Size(88, 21);
             this.labelMachineID.TabIndex = 31;
             this.labelMachineID.Text = "Machine ID";
+
             // 
             // textBoxMin
             // 
@@ -237,11 +241,24 @@
             this.labelId.TabIndex = 19;
             this.labelId.Text = "ID";
             // 
+            // labelCompanyName
+            // 
+            this.labelCompanyName.AutoSize = true;
+            this.labelCompanyName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelCompanyName.Location = new System.Drawing.Point(20, 229);
+            this.labelCompanyName.Name = "labelCompanyName";
+            this.labelCompanyName.Size = new System.Drawing.Size(123, 21);
+            this.labelCompanyName.TabIndex = 35;
+            this.labelCompanyName.Text = "Company Name";
+            this.labelCompanyName.Visible = false;
+
+            // 
             // AddPart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(495, 364);
+            this.Controls.Add(this.labelCompanyName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.textBoxMachineID);
@@ -295,5 +312,6 @@
         private Label labelName;
         private Label labelId;
         private BindingSource productPartBindingSource;
+        private Label labelCompanyName;
     }
 }

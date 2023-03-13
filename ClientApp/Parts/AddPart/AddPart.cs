@@ -18,6 +18,9 @@ namespace ClientApp.Parts.AddPart
         private MainScreen mainScreen;
         private Inventory inventory;
         private ProductPart part = new ProductPart();
+
+        private InHouse inHouse;
+        private Outsourced outSourced;
         public AddPart()
         {
             InitializeComponent();
@@ -127,6 +130,18 @@ namespace ClientApp.Parts.AddPart
         private void textBoxMachineID_TextChanged(object sender, EventArgs e)
         {
             ControlsValidation();
+        }
+
+        private void radioInHouse_CheckedChanged(object sender, EventArgs e)
+        {
+            labelMachineID.Show();
+            labelCompanyName.Visible = false;
+        }
+
+        private void radioOutsourced_CheckedChanged(object sender, EventArgs e)
+        {
+            labelCompanyName.Show();
+            labelMachineID.Visible = false;
         }
     }
 }
