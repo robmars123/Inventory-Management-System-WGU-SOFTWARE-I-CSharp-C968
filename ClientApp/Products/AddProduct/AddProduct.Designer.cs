@@ -178,11 +178,11 @@
             // 
             this.labelPriceCost.AutoSize = true;
             this.labelPriceCost.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelPriceCost.Location = new System.Drawing.Point(53, 276);
+            this.labelPriceCost.Location = new System.Drawing.Point(85, 276);
             this.labelPriceCost.Name = "labelPriceCost";
-            this.labelPriceCost.Size = new System.Drawing.Size(81, 21);
+            this.labelPriceCost.Size = new System.Drawing.Size(44, 21);
             this.labelPriceCost.TabIndex = 36;
-            this.labelPriceCost.Text = "Price/Cost";
+            this.labelPriceCost.Text = "Price";
             // 
             // labelInventory
             // 

@@ -178,10 +178,17 @@ namespace ClientApp
         private void searchParts_Click(object sender, EventArgs e)
         {
             var selectedParts = new List<ProductPart>();
-            var searchedTerm = searchBoxParts.Text.Trim().ToLower();
+            var searchedTerm = searchBoxParts.Text.Trim().ToLower(); // Search by Part Name or Part ID
+            
 
             var list = _services.Parts();
-            selectedParts = list.Where(x => x.Name.ToLower().Contains(searchedTerm)).ToList();
+
+            //check for ID
+            if (!string.IsNullOrEmpty(searchedTerm) && searchedTerm.All(char.IsDigit)) 
+                selectedParts = list.Where(x =>  x.PartID == Convert.ToInt32(searchedTerm)).ToList();
+            //check for Name
+            else
+                selectedParts = list.Where(x => x.Name.ToLower().Contains(searchedTerm)).ToList();
 
             if (!searchBoxParts.Text.IsNullOrEmpty())
                 dataPartsGrid.DataSource = selectedParts;
@@ -204,7 +211,13 @@ namespace ClientApp
             var searchedTerm = searchBoxProducts.Text.Trim().ToLower();
 
             var list = _services.Products();
-            selectedProducts = list.Where(x => x.Name.ToLower().Contains(searchedTerm)).ToList();
+
+            //check for ID
+            if (!string.IsNullOrEmpty(searchedTerm) && searchedTerm.All(char.IsDigit))
+                selectedProducts = list.Where(x => x.ProductID == Convert.ToInt32(searchedTerm)).ToList();
+            //check for Name
+            else
+                selectedProducts = list.Where(x => x.Name.ToLower().Contains(searchedTerm)).ToList();
 
             if (!searchBoxProducts.Text.IsNullOrEmpty())
                 dataProductGrid.DataSource = selectedProducts;
