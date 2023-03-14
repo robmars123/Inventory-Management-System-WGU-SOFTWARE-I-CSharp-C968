@@ -10,8 +10,6 @@ namespace DAL.Models.Base
 {
     public abstract class Part
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PartID { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
