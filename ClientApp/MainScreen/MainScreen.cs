@@ -15,7 +15,7 @@ namespace ClientApp
     public partial class MainScreen : Form
     {
         public Inventory inventory = new Inventory();
-        public InventoryService _services = new InventoryService();
+        private InventoryService _services = new InventoryService();
 
         private AddPart addPartForm;
         private ModifyPart modifyPartForm;

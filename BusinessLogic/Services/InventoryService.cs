@@ -1,5 +1,6 @@
 ﻿using DAL.DataContext;
 using DAL.Models;
+using DAL.Models.Base;
 
 namespace BusinessLogic.Services
 {
@@ -27,6 +28,23 @@ namespace BusinessLogic.Services
                 inventory.Products = context.Products.ToList();
             }
             return inventory.Products;
+        }
+
+        //Bridge table model
+        public List<ProductPart> GetProductAssociatedParts(int productId)
+        {
+            var partsListofProduct = new List<ProductAssociatedPart>();
+            var result = new List<ProductPart>();
+            using (var context = new InventoryDBContext())
+            {
+                partsListofProduct = context.ProductAssociatedParts.Where(product=>product.ProductID == productId).ToList();
+                foreach (var partId in partsListofProduct)
+                {
+                    result.Add(Parts().Where(part => part.PartID == partId.PartID).Select(x=>x).FirstOrDefault());
+                }               
+            }
+            var list = result.RemoveAll(item => item == null);
+            return result;
         }
     }
 }

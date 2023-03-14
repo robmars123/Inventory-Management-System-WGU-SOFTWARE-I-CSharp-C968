@@ -1,4 +1,5 @@
-﻿using DAL.DataContext;
+﻿using BusinessLogic.Services;
+using DAL.DataContext;
 using DAL.Models;
 using DAL.Models.Base;
 using System;
@@ -16,6 +17,8 @@ namespace ClientApp.Products.ModifyProduct
     public partial class ModifyProduct : Form
     {
         private Product product = new Product();
+        private InventoryService _services = new InventoryService();
+        private List<ProductPart> partList = new List<ProductPart>();
         private MainScreen mainScreen;
         public ModifyProduct()
         {
@@ -41,6 +44,11 @@ namespace ClientApp.Products.ModifyProduct
             textBoxMin.Text = product.Min.ToString();
             textBoxPriceCost.Text = product.Price.ToString();
             textBoxInventory.Text = product.InStock.ToString();
+
+            dataCandidatePartsGrid.DataSource = _services.Parts();
+
+            //This would be empty as Add has not happened yet.
+            dataPartsAssociated.DataSource = _services.GetProductAssociatedParts(product.ProductID);
         }
 
         private void ModifyProduct_FormClosed(object sender, FormClosedEventArgs e)
@@ -67,6 +75,63 @@ namespace ClientApp.Products.ModifyProduct
             mainScreen.loadDataMainscreen();
 
             this.Close();
+        }
+
+        private void btnAddPart_Click(object sender, EventArgs e)
+        {
+            var selectedPart = new ProductPart();
+            foreach (DataGridViewRow item in this.dataPartsAssociated.SelectedRows)
+            {
+                if (item.Selected)
+                    selectedPart = item.DataBoundItem as ProductPart;
+            }
+
+            partList.Add(selectedPart);
+            loadDataMainscreen();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            var selectedPart = new ProductPart();
+
+            //Foreach is being used for multi-select but SOFTWARE I – C# — C968 only 1 selection is required.
+            foreach (DataGridViewRow item in this.dataPartsAssociated.SelectedRows)
+            {
+                if (item.Selected)
+                    selectedPart = item.DataBoundItem as ProductPart;
+            }
+            if (selectedPart.PartID == 0)
+            {
+                string message = "Please select something to delete.";
+                MessageBox.Show(message);
+            }
+            else
+            {
+                string message = "Are you sure you want to delete this part?";
+                DialogResult result = MessageBox.Show(message, null, MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    partList.Remove(selectedPart);
+                    loadDataMainscreen();
+                }
+            }
+        }
+        public void loadDataMainscreen()
+        {
+            dataCandidatePartsGrid.DataSource = _services.Parts();
+
+            //clear old datasource
+            dataPartsAssociated.DataSource = null;
+
+            //rebind the list
+            dataPartsAssociated.DataSource = partList;
+
+            dataCandidatePartsGrid.ClearSelection();
+            dataPartsAssociated.ClearSelection();
+        }
+        private void AddProduct_Click(object sender, EventArgs e)
+        {
+            loadDataMainscreen();
         }
     }
 }
