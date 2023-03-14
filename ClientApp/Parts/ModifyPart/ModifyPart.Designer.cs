@@ -250,6 +250,7 @@
             this.textBoxCompanyName.Size = new System.Drawing.Size(100, 23);
             this.textBoxCompanyName.TabIndex = 55;
             this.textBoxCompanyName.Visible = false;
+            this.textBoxCompanyName.TextChanged += new System.EventHandler(this.textBoxCompanyName_TextChanged);
             // 
             // ModifyPart
             // 

@@ -47,11 +47,6 @@ namespace ClientApp.Parts.AddPart
             this.Close();
         }
 
-        private void textBoxID_TextChanged(object sender, EventArgs e)
-        {
-            ControlsValidation();
-        }
-
         private void textBoxName_TextChanged(object sender, EventArgs e)
         {
             ControlsValidation();
@@ -112,6 +107,11 @@ namespace ClientApp.Parts.AddPart
                 textBoxMachineID.BackColor = Color.LightPink;
             else
                 textBoxMachineID.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxCompanyName.Text))
+                textBoxCompanyName.BackColor = Color.LightPink;
+            else
+                textBoxCompanyName.BackColor = Color.White;
         }
 
         private void textBoxPriceCost_TextChanged(object sender, EventArgs e)
@@ -136,16 +136,25 @@ namespace ClientApp.Parts.AddPart
 
         private void radioInHouse_CheckedChanged(object sender, EventArgs e)
         {
-            labelMachineID.Show();
             labelCompanyName.Visible = false;
             textBoxCompanyName.Visible=false;
+
+            labelMachineID.Visible = true;
+            textBoxMachineID.Visible = true;
         }
 
         private void radioOutsourced_CheckedChanged(object sender, EventArgs e)
         {
-            labelCompanyName.Show();
             labelMachineID.Visible = false;
             textBoxMachineID.Visible=false;
+
+            labelCompanyName.Visible = true;
+            textBoxCompanyName.Visible = true;
+        }
+
+        private void textBoxCompanyName_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
         }
     }
 }

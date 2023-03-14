@@ -97,6 +97,11 @@ namespace ClientApp.Parts.ModifyPart
                 textBoxMachineID.BackColor = Color.LightPink;
             else
                 textBoxMachineID.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxCompanyName.Text))
+                textBoxCompanyName.BackColor = Color.LightPink;
+            else
+                textBoxCompanyName.BackColor = Color.White;
         }
 
         private void textBoxName_TextChanged(object sender, EventArgs e)
@@ -131,16 +136,25 @@ namespace ClientApp.Parts.ModifyPart
 
         private void radioInHouseModify_CheckedChanged(object sender, EventArgs e)
         {
-            labelMachineID.Show();
             labelCompanyName.Visible = false;
-            textBoxCompanyName.Visible=false; 
+            textBoxCompanyName.Visible = false;
+
+            labelMachineID.Visible = true;
+            textBoxMachineID.Visible = true;
         }
 
         private void radioOutsourcedModify_CheckedChanged(object sender, EventArgs e)
         {
-            labelCompanyName.Show();
             labelMachineID.Visible = false;
-            textBoxMachineID.Visible=false;
+            textBoxMachineID.Visible = false;
+
+            labelCompanyName.Visible = true;
+            textBoxCompanyName.Visible = true;
+        }
+
+        private void textBoxCompanyName_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
         }
     }
 }

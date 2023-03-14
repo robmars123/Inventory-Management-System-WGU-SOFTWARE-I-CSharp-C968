@@ -175,7 +175,6 @@
             this.textBoxID.Name = "textBoxID";
             this.textBoxID.Size = new System.Drawing.Size(100, 23);
             this.textBoxID.TabIndex = 25;
-            this.textBoxID.TextChanged += new System.EventHandler(this.textBoxID_TextChanged);
             // 
             // productPartBindingSource
             // 
@@ -259,6 +258,7 @@
             this.textBoxCompanyName.Size = new System.Drawing.Size(100, 23);
             this.textBoxCompanyName.TabIndex = 36;
             this.textBoxCompanyName.Visible = false;
+            this.textBoxCompanyName.TextChanged += new System.EventHandler(this.textBoxCompanyName_TextChanged);
             // 
             // AddPart
             // 
