@@ -18,7 +18,7 @@ namespace ClientApp.Products.AddProduct
     {
         public Inventory inventory = new Inventory();
         private InventoryService _services = new InventoryService();
-
+        private List<ProductPart> partList = new List<ProductPart>();
         private Product product = new Product();
         private MainScreen mainScreen;
         public AddProduct()
@@ -39,8 +39,10 @@ namespace ClientApp.Products.AddProduct
 
         private void AddProduct_Load(object sender, EventArgs e)
         {
-                dataCandidatePartsGrid.DataSource = _services.Parts();
-                dataPartsAssociated.DataSource = _services.Products();
+            dataPartsCandidate.DataSource = _services.Parts();
+
+            //This would be empty as Add has not happened yet.
+            dataPartsAssociated.DataSource = null;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -62,6 +64,65 @@ namespace ClientApp.Products.AddProduct
             mainScreen.loadDataMainscreen();
 
             this.Close();
+        }
+
+        private void btnAddPart_Click(object sender, EventArgs e)
+        {
+            var selectedPart = new ProductPart();
+            foreach (DataGridViewRow item in this.dataPartsCandidate.SelectedRows)
+            {
+                if (item.Selected)
+                    selectedPart = item.DataBoundItem as ProductPart;
+            }
+
+            partList.Add(selectedPart);
+            loadDataMainscreen();
+        }
+
+        public void loadDataMainscreen()
+        {
+            dataPartsCandidate.DataSource = _services.Parts();
+
+            //clear old datasource
+            dataPartsAssociated.DataSource = null;
+            
+            //rebind the list
+            dataPartsAssociated.DataSource = partList;
+
+            dataPartsCandidate.ClearSelection();
+            dataPartsAssociated.ClearSelection();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            var selectedPart = new ProductPart();
+
+            //Foreach is being used for multi-select but SOFTWARE I – C# — C968 only 1 selection is required.
+            foreach (DataGridViewRow item in this.dataPartsAssociated.SelectedRows)
+            {
+                if (item.Selected)
+                    selectedPart = item.DataBoundItem as ProductPart;
+            }
+            if (selectedPart.PartID == 0)
+            {
+                string message = "Please select something to delete.";
+                MessageBox.Show(message);
+            }
+            else
+            {
+                string message = "Are you sure you want to delete this part?";
+                DialogResult result = MessageBox.Show(message, null, MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    partList.Remove(selectedPart);
+                    loadDataMainscreen();
+                }
+            }
+        }
+
+        private void AddProduct_Click(object sender, EventArgs e)
+        {
+            loadDataMainscreen();
         }
     }
 }

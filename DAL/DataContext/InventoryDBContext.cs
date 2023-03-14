@@ -24,6 +24,7 @@ namespace DAL.DataContext
         }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductPart> ProductParts { get; set; }
+        public virtual DbSet<ProductAssociatedPart> ProductAssociatedParts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,7 +34,8 @@ namespace DAL.DataContext
 
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ProductPart>().ToTable("ProductPart"); 
+            modelBuilder.Entity<ProductPart>().ToTable("ProductPart");
+            modelBuilder.Entity<ProductAssociatedPart>().ToTable("ProductAssociatedPart").HasNoKey();
         }
 
     }
