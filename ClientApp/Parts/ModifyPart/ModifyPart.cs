@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using System.Text.RegularExpressions;
 
 namespace ClientApp.Parts.ModifyPart
 {
@@ -34,9 +35,21 @@ namespace ClientApp.Parts.ModifyPart
         {
             this.Close();
         }
-
+        private bool ValidateLettersOnly(string letters)
+        {
+            return Regex.IsMatch(letters, @"^[a-zA-Z ]+$");
+        }
+        private bool ValidateNumbersOnly(string numbers)
+        {
+            return Regex.IsMatch(numbers, @"^[0-9]+$");
+        }
+        private bool ValidateDecimalOnly(string numbers)
+        {
+            return Regex.IsMatch(numbers, @"^[1-9]\d*(\.\d+)?$");
+        }
         private void ModifyPart_Load(object sender, EventArgs e)
         {
+            ControlsValidation();
             textBoxID.Text = part.PartID.ToString();
             textBoxName.Text = part.Name;
             textBoxMax.Text = part.Max.ToString();
@@ -58,6 +71,15 @@ namespace ClientApp.Parts.ModifyPart
             part.MachineID = Convert.ToInt32(textBoxMachineID.Text);
             part.CompanyName = textBoxCompanyName.Text;
 
+            if ((Convert.ToInt32(string.IsNullOrEmpty(textBoxMin.Text) ? "0"
+            : textBoxMin.Text) > Convert.ToInt32(string.IsNullOrEmpty(textBoxMax.Text) ? "0"
+            : textBoxMax.Text)))
+            {
+                string message = "Your minimum exceeds your maximum value.";
+                MessageBox.Show(message);
+                return;
+            }
+
             mainScreen.inventory.updatePart(part.PartID,part);
 
             mainScreen.loadDataMainscreen();
@@ -68,32 +90,32 @@ namespace ClientApp.Parts.ModifyPart
         private void ControlsValidation()
         {
 
-            if (string.IsNullOrEmpty(textBoxName.Text))
+            if (string.IsNullOrEmpty(textBoxName.Text) || !ValidateLettersOnly(textBoxName.Text))
                 textBoxName.BackColor = Color.LightPink;
             else
                 textBoxName.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(textBoxInventory.Text))
+            if (string.IsNullOrEmpty(textBoxInventory.Text) || !ValidateNumbersOnly(textBoxInventory.Text))
                 textBoxInventory.BackColor = Color.LightPink;
             else
                 textBoxInventory.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(textBoxPriceCost.Text))
+            if (string.IsNullOrEmpty(textBoxPriceCost.Text) || !ValidateDecimalOnly(textBoxPriceCost.Text))
                 textBoxPriceCost.BackColor = Color.LightPink;
             else
                 textBoxPriceCost.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(textBoxMax.Text))
+            if (string.IsNullOrEmpty(textBoxMax.Text) || !ValidateNumbersOnly(textBoxMax.Text))
                 textBoxMax.BackColor = Color.LightPink;
             else
                 textBoxMax.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(textBoxMin.Text))
+            if (string.IsNullOrEmpty(textBoxMin.Text) || !ValidateNumbersOnly(textBoxMin.Text))
                 textBoxMin.BackColor = Color.LightPink;
             else
                 textBoxMin.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(textBoxMachineID.Text))
+            if (string.IsNullOrEmpty(textBoxMachineID.Text) || !ValidateNumbersOnly(textBoxMachineID.Text))
                 textBoxMachineID.BackColor = Color.LightPink;
             else
                 textBoxMachineID.BackColor = Color.White;
@@ -136,6 +158,7 @@ namespace ClientApp.Parts.ModifyPart
 
         private void radioInHouseModify_CheckedChanged(object sender, EventArgs e)
         {
+            ControlsValidation();
             labelCompanyName.Visible = false;
             textBoxCompanyName.Visible = false;
 
@@ -145,6 +168,7 @@ namespace ClientApp.Parts.ModifyPart
 
         private void radioOutsourcedModify_CheckedChanged(object sender, EventArgs e)
         {
+            ControlsValidation();
             labelMachineID.Visible = false;
             textBoxMachineID.Visible = false;
 

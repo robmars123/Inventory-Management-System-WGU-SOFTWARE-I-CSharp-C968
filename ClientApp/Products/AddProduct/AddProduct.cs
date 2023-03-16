@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using System.Text.RegularExpressions;
 
 namespace ClientApp.Products.AddProduct
 {
@@ -26,6 +27,7 @@ namespace ClientApp.Products.AddProduct
 
         private void AddProduct_Load(object sender, EventArgs e)
         {
+            ControlsValidation();
             dataPartsCandidate.DataSource = inventory.Parts();
 
             //This would be empty as Add has not happened yet.
@@ -45,6 +47,15 @@ namespace ClientApp.Products.AddProduct
             product.Min = Convert.ToInt32(textBoxMin.Text);
             product.Price = Convert.ToDecimal(textBoxPriceCost.Text);
             product.InStock = Convert.ToInt32(textBoxInventory.Text);
+
+            if ((Convert.ToInt32(string.IsNullOrEmpty(textBoxMin.Text) ? "0"
+            : textBoxMin.Text) > Convert.ToInt32(string.IsNullOrEmpty(textBoxMax.Text) ? "0"
+            : textBoxMax.Text)))
+            {
+                string message = "Your minimum exceeds your maximum value.";
+                MessageBox.Show(message);
+                return;
+            }
 
             //add the product to product table
             mainScreen.inventory.addProduct(product);
@@ -143,6 +154,78 @@ namespace ClientApp.Products.AddProduct
         private void AddProduct_Click(object sender, EventArgs e)
         {
             loadDataMainscreen();
+        }
+
+        private bool ValidateLettersOnly(string letters)
+        {
+            return Regex.IsMatch(letters, @"^[a-zA-Z ]+$");
+        }
+        private bool ValidateNumbersOnly(string numbers)
+        {
+            return Regex.IsMatch(numbers, @"^[0-9]+$");
+        }
+        private bool ValidateDecimalOnly(string numbers)
+        {
+            return Regex.IsMatch(numbers, @"^[1-9]\d*(\.\d+)?$");
+        }
+
+        private void ControlsValidation()
+        {
+
+            if (string.IsNullOrEmpty(textBoxName.Text) || !ValidateLettersOnly(textBoxName.Text))
+                textBoxName.BackColor = Color.LightPink;
+            else
+                textBoxName.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxInventory.Text) || !ValidateNumbersOnly(textBoxInventory.Text))
+                textBoxInventory.BackColor = Color.LightPink;
+            else
+                textBoxInventory.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxPriceCost.Text) || !ValidateDecimalOnly(textBoxPriceCost.Text))
+                textBoxPriceCost.BackColor = Color.LightPink;
+            else
+                textBoxPriceCost.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxMax.Text) || !ValidateNumbersOnly(textBoxMax.Text))
+                textBoxMax.BackColor = Color.LightPink;
+            else
+                textBoxMax.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(textBoxMin.Text) || !ValidateNumbersOnly(textBoxMin.Text))
+                textBoxMin.BackColor = Color.LightPink;
+            else
+                textBoxMin.BackColor = Color.White;
+        }
+
+        private void textBoxID_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
+
+        private void textBoxName_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
+
+        private void textBoxInventory_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
+
+        private void textBoxPriceCost_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
+
+        private void textBoxMax_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
+        }
+
+        private void textBoxMin_TextChanged(object sender, EventArgs e)
+        {
+            ControlsValidation();
         }
     }
 }

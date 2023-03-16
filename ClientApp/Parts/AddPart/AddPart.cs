@@ -53,6 +53,14 @@ namespace ClientApp.Parts.AddPart
             part.MachineID = Convert.ToInt32(textBoxMachineID.Text);
             part.CompanyName = textBoxCompanyName.Text;
 
+            if ((Convert.ToInt32(string.IsNullOrEmpty(textBoxMin.Text) ? "0"
+                        : textBoxMin.Text) > Convert.ToInt32(string.IsNullOrEmpty(textBoxMax.Text) ? "0"
+                        : textBoxMax.Text)))
+            {
+                string message = "Your minimum exceeds your maximum value.";
+                MessageBox.Show(message);
+                return;
+            }
             mainScreen.inventory.addPart(part);
 
             mainScreen.loadDataMainscreen();
@@ -67,7 +75,7 @@ namespace ClientApp.Parts.AddPart
 
         private bool ValidateLettersOnly(string letters)
         {
-            return Regex.IsMatch(letters, @"^[a-zA-Z]+$");
+            return Regex.IsMatch(letters, @"^[a-zA-Z ]+$");
         }
         private bool ValidateNumbersOnly(string numbers)
         {
@@ -81,12 +89,18 @@ namespace ClientApp.Parts.AddPart
         {
 
             if (string.IsNullOrEmpty(textBoxName.Text) || !ValidateLettersOnly(textBoxName.Text))
+            {
                 textBoxName.BackColor = Color.LightPink;
+                toolTip1.SetToolTip(textBoxName, "Name requires letters.");
+            }
             else
                 textBoxName.BackColor = Color.White;
 
             if (string.IsNullOrEmpty(textBoxInventory.Text) || !ValidateNumbersOnly(textBoxInventory.Text))
+            {
                 textBoxInventory.BackColor = Color.LightPink;
+                toolTip1.SetToolTip(textBoxInventory, "Inventory requires numbers.");
+            }
             else
                 textBoxInventory.BackColor = Color.White;
 
@@ -101,7 +115,9 @@ namespace ClientApp.Parts.AddPart
                 textBoxMax.BackColor = Color.White;
 
             if (string.IsNullOrEmpty(textBoxMin.Text) || !ValidateNumbersOnly(textBoxMin.Text))
+            {
                 textBoxMin.BackColor = Color.LightPink;
+            }
             else
                 textBoxMin.BackColor = Color.White;
 
@@ -110,7 +126,7 @@ namespace ClientApp.Parts.AddPart
             else
                 textBoxMachineID.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(textBoxCompanyName.Text) || !ValidateLettersOnly(textBoxCompanyName.Text))
+            if (string.IsNullOrEmpty(textBoxCompanyName.Text))
                 textBoxCompanyName.BackColor = Color.LightPink;
             else
                 textBoxCompanyName.BackColor = Color.White;
@@ -138,8 +154,9 @@ namespace ClientApp.Parts.AddPart
 
         private void radioInHouse_CheckedChanged(object sender, EventArgs e)
         {
+            ControlsValidation();
             labelCompanyName.Visible = false;
-            textBoxCompanyName.Visible=false;
+            textBoxCompanyName.Visible = false;
 
             labelMachineID.Visible = true;
             textBoxMachineID.Visible = true;
@@ -147,8 +164,9 @@ namespace ClientApp.Parts.AddPart
 
         private void radioOutsourced_CheckedChanged(object sender, EventArgs e)
         {
+            ControlsValidation();
             labelMachineID.Visible = false;
-            textBoxMachineID.Visible=false;
+            textBoxMachineID.Visible = false;
 
             labelCompanyName.Visible = true;
             textBoxCompanyName.Visible = true;
@@ -157,6 +175,54 @@ namespace ClientApp.Parts.AddPart
         private void textBoxCompanyName_TextChanged(object sender, EventArgs e)
         {
             ControlsValidation();
+        }
+
+        private void textBoxName_MouseHover(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(textBoxName, "Name requires letters.");
+        }
+        private void ToolTipHoverValidation(string message, object sender)
+        {
+            TextBox TB = (TextBox)sender;
+            int VisibleTime = 2000;  //in milliseconds
+
+            ToolTip tt = new ToolTip();
+            tt.Show(message, TB, 30, 10, VisibleTime);
+        }
+
+        private void textBoxInventory_MouseHover(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(textBoxInventory, "Inventory requires numbers.");
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+
+        private void textBoxPriceCost_MouseHover(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(textBoxPriceCost, "Price requires decimal.");
+        }
+
+        private void textBoxMax_MouseHover(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(textBoxMax, "Max requires numbers.");
+        }
+
+        private void textBoxMin_MouseHover(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(textBoxMin, "Min requires numbers.");
+        }
+
+        private void textBoxCompanyName_MouseHover(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(textBoxCompanyName, "Company Name requires value.");
+        }
+
+        private void textBoxMachineID_MouseHover(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(textBoxMachineID, "Machine ID requires numbers.");
         }
     }
 }
