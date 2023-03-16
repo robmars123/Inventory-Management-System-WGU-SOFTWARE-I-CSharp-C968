@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using System.Text.RegularExpressions;
 
 namespace ClientApp.Parts.AddPart
 {
@@ -64,40 +65,52 @@ namespace ClientApp.Parts.AddPart
             ControlsValidation();
         }
 
+        private bool ValidateLettersOnly(string letters)
+        {
+            return Regex.IsMatch(letters, @"^[a-zA-Z]+$");
+        }
+        private bool ValidateNumbersOnly(string numbers)
+        {
+            return Regex.IsMatch(numbers, @"^[0-9]+$");
+        }
+        private bool ValidateDecimalOnly(string numbers)
+        {
+            return Regex.IsMatch(numbers, @"^[1-9]\d*(\.\d+)?$");
+        }
         private void ControlsValidation()
         {
 
-            if (string.IsNullOrEmpty(textBoxName.Text))
+            if (string.IsNullOrEmpty(textBoxName.Text) || !ValidateLettersOnly(textBoxName.Text))
                 textBoxName.BackColor = Color.LightPink;
             else
                 textBoxName.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(textBoxInventory.Text))
+            if (string.IsNullOrEmpty(textBoxInventory.Text) || !ValidateNumbersOnly(textBoxInventory.Text))
                 textBoxInventory.BackColor = Color.LightPink;
             else
                 textBoxInventory.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(textBoxPriceCost.Text))
+            if (string.IsNullOrEmpty(textBoxPriceCost.Text) || !ValidateDecimalOnly(textBoxPriceCost.Text))
                 textBoxPriceCost.BackColor = Color.LightPink;
             else
                 textBoxPriceCost.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(textBoxMax.Text))
+            if (string.IsNullOrEmpty(textBoxMax.Text) || !ValidateNumbersOnly(textBoxMax.Text))
                 textBoxMax.BackColor = Color.LightPink;
             else
                 textBoxMax.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(textBoxMin.Text))
+            if (string.IsNullOrEmpty(textBoxMin.Text) || !ValidateNumbersOnly(textBoxMin.Text))
                 textBoxMin.BackColor = Color.LightPink;
             else
                 textBoxMin.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(textBoxMachineID.Text))
+            if (string.IsNullOrEmpty(textBoxMachineID.Text) || !ValidateNumbersOnly(textBoxMachineID.Text))
                 textBoxMachineID.BackColor = Color.LightPink;
             else
                 textBoxMachineID.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(textBoxCompanyName.Text))
+            if (string.IsNullOrEmpty(textBoxCompanyName.Text) || !ValidateLettersOnly(textBoxCompanyName.Text))
                 textBoxCompanyName.BackColor = Color.LightPink;
             else
                 textBoxCompanyName.BackColor = Color.White;
