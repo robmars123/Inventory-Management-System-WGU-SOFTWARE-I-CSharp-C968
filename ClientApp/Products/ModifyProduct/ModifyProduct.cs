@@ -62,44 +62,51 @@ namespace ClientApp.Products.ModifyProduct
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //fields of product to Modify
-            product.Name = textBoxName.Text;
-            product.Max = Convert.ToInt32(textBoxMax.Text);
-            product.Min = Convert.ToInt32(textBoxMin.Text);
-            product.Price = Convert.ToDecimal(textBoxPriceCost.Text);
-            product.InStock = Convert.ToInt32(textBoxInventory.Text);
-
-            //validate minimum and maximum
-            if ((Convert.ToInt32(string.IsNullOrEmpty(textBoxMin.Text) ? "0"
-            : textBoxMin.Text) > Convert.ToInt32(string.IsNullOrEmpty(textBoxMax.Text) ? "0"
-            : textBoxMax.Text)))
+            try
             {
-                string message = "Your minimum exceeds your maximum value.";
-                MessageBox.Show(message);
-                return;
-            } 
+                //fields of product to Modify
+                product.Name = textBoxName.Text;
+                product.Max = Convert.ToInt32(textBoxMax.Text);
+                product.Min = Convert.ToInt32(textBoxMin.Text);
+                product.Price = Convert.ToDecimal(textBoxPriceCost.Text);
+                product.InStock = Convert.ToInt32(textBoxInventory.Text);
 
-            AssociatedParts = dataPartsAssociated.DataSource as List<ProductPart>;
-            if (AssociatedParts != null)
-            {
-                //check if parts already exist with productID
-                var templist = new List<ProductAssociatedPart>();
-                foreach (var part in AssociatedParts)
+                //validate minimum and maximum
+                if ((Convert.ToInt32(string.IsNullOrEmpty(textBoxMin.Text) ? "0"
+                : textBoxMin.Text) > Convert.ToInt32(string.IsNullOrEmpty(textBoxMax.Text) ? "0"
+                : textBoxMax.Text)))
                 {
-                    var productAssociatedParts = new ProductAssociatedPart()
-                    {
-                        PartID = part.PartID,
-                        ProductID = product.ProductID
-                    };
-                    templist.Add(productAssociatedParts);
+                    string message = "Your minimum exceeds your maximum value.";
+                    MessageBox.Show(message);
+                    return;
                 }
-                product.CheckExistingAssociatedParts(templist, deletedList, product.ProductID, "Save");
+
+                AssociatedParts = dataPartsAssociated.DataSource as List<ProductPart>;
+                if (AssociatedParts != null)
+                {
+                    //check if parts already exist with productID
+                    var templist = new List<ProductAssociatedPart>();
+                    foreach (var part in AssociatedParts)
+                    {
+                        var productAssociatedParts = new ProductAssociatedPart()
+                        {
+                            PartID = part.PartID,
+                            ProductID = product.ProductID
+                        };
+                        templist.Add(productAssociatedParts);
+                    }
+                    product.CheckExistingAssociatedParts(templist, deletedList, product.ProductID, "Save");
+                }
+
+                inventory.updateProduct(product.ProductID, product);
+                mainScreen.loadDataMainscreen();
+
+                this.Close();
             }
-
-            inventory.updateProduct(product.ProductID, product);
-            mainScreen.loadDataMainscreen();
-
-            this.Close();
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
         private void btnAddPart_Click(object sender, EventArgs e)
@@ -120,7 +127,6 @@ namespace ClientApp.Products.ModifyProduct
             {
                 AssociatedParts = dataPartsAssociated.DataSource as List<ProductPart>;
                 AssociatedParts.Add(selectedPart);
-                //product.addAssociatedPart(selectedPart);
                 dataPartsAssociated.DataSource = AssociatedParts;
                 loadDataMainscreen();
             }
@@ -165,9 +171,6 @@ namespace ClientApp.Products.ModifyProduct
 
             //rebind the list
             dataPartsAssociated.DataSource = product.AssociatedParts;
-
-            // product.AssociatedParts = AssociatedParts;
-
             dataCandidatePartsGrid.ClearSelection();
             dataPartsAssociated.ClearSelection();
         }
@@ -245,6 +248,16 @@ namespace ClientApp.Products.ModifyProduct
                 textBoxMin.BackColor = Color.LightPink;
             else
                 textBoxMin.BackColor = Color.White;
+
+            //if required fields are empty, disable Save button
+            if (string.IsNullOrEmpty(textBoxName.Text) ||
+                   string.IsNullOrEmpty(textBoxInventory.Text) ||
+                   string.IsNullOrEmpty(textBoxPriceCost.Text) ||
+                   string.IsNullOrEmpty(textBoxMin.Text) ||
+                   string.IsNullOrEmpty(textBoxMax.Text))
+                btnSave.Enabled = false;
+            else
+                btnSave.Enabled = true;
         }
 
         private void textBoxID_TextChanged(object sender, EventArgs e)
