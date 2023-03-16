@@ -41,46 +41,53 @@ namespace ClientApp.Products.AddProduct
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //product first fields
-            product.Name = textBoxName.Text;
-            product.Max = Convert.ToInt32(textBoxMax.Text);
-            product.Min = Convert.ToInt32(textBoxMin.Text);
-            product.Price = Convert.ToDecimal(textBoxPriceCost.Text);
-            product.InStock = Convert.ToInt32(textBoxInventory.Text);
-
-            if ((Convert.ToInt32(string.IsNullOrEmpty(textBoxMin.Text) ? "0"
-            : textBoxMin.Text) > Convert.ToInt32(string.IsNullOrEmpty(textBoxMax.Text) ? "0"
-            : textBoxMax.Text)))
+            try
             {
-                string message = "Your minimum exceeds your maximum value.";
-                MessageBox.Show(message);
+                //product first fields
+                product.Name = textBoxName.Text;
+                product.Max = Convert.ToInt32(textBoxMax.Text);
+                product.Min = Convert.ToInt32(textBoxMin.Text);
+                product.Price = Convert.ToDecimal(textBoxPriceCost.Text);
+                product.InStock = Convert.ToInt32(textBoxInventory.Text);
+
+                if ((Convert.ToInt32(string.IsNullOrEmpty(textBoxMin.Text) ? "0"
+                : textBoxMin.Text) > Convert.ToInt32(string.IsNullOrEmpty(textBoxMax.Text) ? "0"
+                : textBoxMax.Text)))
+                {
+                    string message = "Your minimum exceeds your maximum value.";
+                    MessageBox.Show(message);
+                    return;
+                }
+
+                //add the product to product table
+                mainScreen.inventory.addProduct(product);
+
+                //save the list
+                AssociatedParts = dataPartsAssociated.DataSource as List<ProductPart>;
+
+                //check if there is any associated parts you want to save
+                if (AssociatedParts != null)
+                {
+                    int newlyAddedProductID = mainScreen.inventory.NewAddedProductId;
+
+                    foreach (var part in AssociatedParts)
+                    {
+                        var productAssociatedPart = new ProductAssociatedPart();
+                        productAssociatedPart.PartID = part.PartID;
+                        productAssociatedPart.ProductID = newlyAddedProductID;
+                        //save product's selected parts
+                        product.SaveProductAssociatedPart(productAssociatedPart);
+                    }
+                }
+
+                mainScreen.loadDataMainscreen();
+
+                this.Close();
+            }
+            catch (Exception ex)
+            {
                 return;
             }
-
-            //add the product to product table
-            mainScreen.inventory.addProduct(product);
-
-            //save the list
-            AssociatedParts = dataPartsAssociated.DataSource as List<ProductPart>;
-
-            //check if there is any associated parts you want to save
-            if (AssociatedParts != null)
-            {
-                int newlyAddedProductID = mainScreen.inventory.NewAddedProductId;
-
-                foreach (var part in AssociatedParts)
-                {
-                    var productAssociatedPart = new ProductAssociatedPart();
-                    productAssociatedPart.PartID = part.PartID;
-                    productAssociatedPart.ProductID = newlyAddedProductID;
-                    //save product's selected parts
-                    product.SaveProductAssociatedPart(productAssociatedPart);
-                }
-            }
-
-            mainScreen.loadDataMainscreen();
-
-            this.Close();
         }
 
 
@@ -196,6 +203,17 @@ namespace ClientApp.Products.AddProduct
                 textBoxMin.BackColor = Color.LightPink;
             else
                 textBoxMin.BackColor = Color.White;
+
+
+            //if required fields are empty, disable Save button
+            if (string.IsNullOrEmpty(textBoxName.Text) ||
+                   string.IsNullOrEmpty(textBoxInventory.Text) ||
+                   string.IsNullOrEmpty(textBoxPriceCost.Text) ||
+                   string.IsNullOrEmpty(textBoxMin.Text) ||
+                   string.IsNullOrEmpty(textBoxMax.Text))
+                btnSave.Enabled = false;
+            else
+                btnSave.Enabled = true;
         }
 
         private void textBoxID_TextChanged(object sender, EventArgs e)

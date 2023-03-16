@@ -1,16 +1,12 @@
 ﻿using DAL.Models;
 using System.Text.RegularExpressions;
-
 namespace ClientApp.Parts.AddPart
 {
     public partial class AddPart : Form
     {
         private MainScreen mainScreen;
-        private Inventory inventory;
         private ProductPart part = new ProductPart();
 
-        private InHouse inHouse;
-        private Outsourced outSourced;
         public AddPart()
         {
             InitializeComponent();
@@ -44,28 +40,35 @@ namespace ClientApp.Parts.AddPart
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //fields
-            part.Name = textBoxName.Text;
-            part.Max = Convert.ToInt32(textBoxMax.Text);
-            part.Min = Convert.ToInt32(textBoxMin.Text);
-            part.Price = Convert.ToDecimal(textBoxPriceCost.Text);
-            part.InStock = Convert.ToInt32(textBoxInventory.Text);
-            part.MachineID = Convert.ToInt32(textBoxMachineID.Text);
-            part.CompanyName = textBoxCompanyName.Text;
-
-            if ((Convert.ToInt32(string.IsNullOrEmpty(textBoxMin.Text) ? "0"
-                        : textBoxMin.Text) > Convert.ToInt32(string.IsNullOrEmpty(textBoxMax.Text) ? "0"
-                        : textBoxMax.Text)))
+            try
             {
-                string message = "Your minimum exceeds your maximum value.";
-                MessageBox.Show(message);
+                //fields
+                part.Name = textBoxName.Text;
+                part.Max = Convert.ToInt32(textBoxMax.Text);
+                part.Min = Convert.ToInt32(textBoxMin.Text);
+                part.Price = Convert.ToDecimal(textBoxPriceCost.Text);
+                part.InStock = Convert.ToInt32(textBoxInventory.Text);
+                part.MachineID = Convert.ToInt32(textBoxMachineID.Text);
+                part.CompanyName = textBoxCompanyName.Text;
+
+                if ((Convert.ToInt32(string.IsNullOrEmpty(textBoxMin.Text) ? "0"
+                            : textBoxMin.Text) > Convert.ToInt32(string.IsNullOrEmpty(textBoxMax.Text) ? "0"
+                            : textBoxMax.Text)))
+                {
+                    string message = "Your minimum exceeds your maximum value.";
+                    MessageBox.Show(message);
+                    return;
+                }
+
+                mainScreen.inventory.addPart(part);
+
+                mainScreen.loadDataMainscreen();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
                 return;
             }
-            mainScreen.inventory.addPart(part);
-
-            mainScreen.loadDataMainscreen();
-
-            this.Close();
         }
 
         private void textBoxInventory_TextChanged(object sender, EventArgs e)
@@ -87,7 +90,6 @@ namespace ClientApp.Parts.AddPart
         }
         private void ControlsValidation()
         {
-
             if (string.IsNullOrEmpty(textBoxName.Text) || !ValidateLettersOnly(textBoxName.Text))
             {
                 textBoxName.BackColor = Color.LightPink;
@@ -130,6 +132,18 @@ namespace ClientApp.Parts.AddPart
                 textBoxCompanyName.BackColor = Color.LightPink;
             else
                 textBoxCompanyName.BackColor = Color.White;
+
+
+            //if required fields are empty, disable Save button
+            if (string.IsNullOrEmpty(textBoxName.Text) ||
+                   string.IsNullOrEmpty(textBoxInventory.Text) ||
+                   string.IsNullOrEmpty(textBoxPriceCost.Text) ||
+                   string.IsNullOrEmpty(textBoxMin.Text) ||
+                   string.IsNullOrEmpty(textBoxMax.Text) ||
+                   string.IsNullOrEmpty(textBoxMachineID.Text))
+                btnSave.Enabled = false;
+            else
+                btnSave.Enabled = true;
         }
 
         private void textBoxPriceCost_TextChanged(object sender, EventArgs e)

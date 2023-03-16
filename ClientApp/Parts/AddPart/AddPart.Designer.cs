@@ -260,7 +260,7 @@
             // 
             // textBoxCompanyName
             // 
-            this.textBoxCompanyName.Location = new System.Drawing.Point(167, 260);
+            this.textBoxCompanyName.Location = new System.Drawing.Point(167, 231);
             this.textBoxCompanyName.Name = "textBoxCompanyName";
             this.textBoxCompanyName.Size = new System.Drawing.Size(100, 23);
             this.textBoxCompanyName.TabIndex = 36;
