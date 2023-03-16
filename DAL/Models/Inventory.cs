@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DAL.DataContext;
-using DAL.Models.Base;
-using Microsoft.EntityFrameworkCore;
+﻿using DAL.DataContext;
 
 namespace DAL.Models
 {
@@ -18,9 +11,11 @@ namespace DAL.Models
         {
             using (var context = new InventoryDBContext())
             {
+                product.AssociatedParts = null; //empty
                 context.Products.Add(product);
                 context.SaveChanges();
             }
+            GetNewlyAddedProductID();
         }
 
         public bool removeProduct(int id)
@@ -32,10 +27,10 @@ namespace DAL.Models
                 {
                     context.ChangeTracker.Clear();
                     context.Products.Remove(product);
-                    context.SaveChanges();
+                     context.SaveChanges();
                     return true;
                 }
-                return false; // if product is null
+                return false;
             }
         }
 
@@ -49,6 +44,8 @@ namespace DAL.Models
         {
             using (var context = new InventoryDBContext())
             {
+                product.AssociatedParts = null; //empty first
+
                 context.ChangeTracker.Clear();
                 context.Products.Update(product);
                 context.SaveChanges();
@@ -77,14 +74,6 @@ namespace DAL.Models
 
         public ProductPart lookupPart(int id)
         {
-            //using (var context = new InventoryDBContext())
-            //{
-            //    context.ChangeTracker.Clear();
-            //    context.ProductParts.Update(part);
-            //    context.SaveChanges();
-            //}
-
-            
             return null;
         }
 
@@ -97,5 +86,35 @@ namespace DAL.Models
                 context.SaveChanges();
             }
         }
+
+        //my helper methods/properties below
+        public int NewAddedProductId { get; set; }
+        private int GetNewlyAddedProductID()
+        {
+            using (var context = new InventoryDBContext())
+            {
+                return NewAddedProductId = context.Products.OrderByDescending(x=>x.ProductID).FirstOrDefault().ProductID;
+            }
+        }
+
+
+        public List<ProductPart> Parts()
+        {
+            using (var context = new InventoryDBContext())
+            {
+                AllParts = context.ProductParts.ToList();
+            }
+            return AllParts;
+        }
+
+        public List<Product> ProductsList()
+        {
+            using (var context = new InventoryDBContext())
+            {
+                Products = context.Products.ToList();
+            }
+            return Products;
+        }
+
     }
 }

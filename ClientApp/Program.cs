@@ -1,5 +1,3 @@
-using DAL.DataContext;
-
 namespace ClientApp
 {
     internal static class Program
