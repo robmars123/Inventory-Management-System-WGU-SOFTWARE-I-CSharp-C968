@@ -51,6 +51,7 @@
             this.labelId = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxCompanyName = new System.Windows.Forms.TextBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.productPartBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -115,6 +116,7 @@
             this.textBoxMachineID.Size = new System.Drawing.Size(100, 23);
             this.textBoxMachineID.TabIndex = 32;
             this.textBoxMachineID.TextChanged += new System.EventHandler(this.textBoxMachineID_TextChanged);
+            this.textBoxMachineID.MouseHover += new System.EventHandler(this.textBoxMachineID_MouseHover);
             // 
             // labelMachineID
             // 
@@ -133,6 +135,7 @@
             this.textBoxMin.Size = new System.Drawing.Size(100, 23);
             this.textBoxMin.TabIndex = 30;
             this.textBoxMin.TextChanged += new System.EventHandler(this.textBoxMin_TextChanged);
+            this.textBoxMin.MouseHover += new System.EventHandler(this.textBoxMin_MouseHover);
             // 
             // textBoxMax
             // 
@@ -141,6 +144,7 @@
             this.textBoxMax.Size = new System.Drawing.Size(100, 23);
             this.textBoxMax.TabIndex = 29;
             this.textBoxMax.TextChanged += new System.EventHandler(this.textBoxMax_TextChanged);
+            this.textBoxMax.MouseHover += new System.EventHandler(this.textBoxMax_MouseHover);
             // 
             // textBoxPriceCost
             // 
@@ -149,6 +153,7 @@
             this.textBoxPriceCost.Size = new System.Drawing.Size(174, 23);
             this.textBoxPriceCost.TabIndex = 28;
             this.textBoxPriceCost.TextChanged += new System.EventHandler(this.textBoxPriceCost_TextChanged);
+            this.textBoxPriceCost.MouseHover += new System.EventHandler(this.textBoxPriceCost_MouseHover);
             // 
             // textBoxInventory
             // 
@@ -157,6 +162,7 @@
             this.textBoxInventory.Size = new System.Drawing.Size(174, 23);
             this.textBoxInventory.TabIndex = 27;
             this.textBoxInventory.TextChanged += new System.EventHandler(this.textBoxInventory_TextChanged);
+            this.textBoxInventory.MouseHover += new System.EventHandler(this.textBoxInventory_MouseHover);
             // 
             // textBoxName
             // 
@@ -165,6 +171,7 @@
             this.textBoxName.Size = new System.Drawing.Size(174, 23);
             this.textBoxName.TabIndex = 26;
             this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
+            this.textBoxName.MouseHover += new System.EventHandler(this.textBoxName_MouseHover);
             // 
             // textBoxID
             // 
@@ -253,12 +260,17 @@
             // 
             // textBoxCompanyName
             // 
-            this.textBoxCompanyName.Location = new System.Drawing.Point(167, 231);
+            this.textBoxCompanyName.Location = new System.Drawing.Point(167, 260);
             this.textBoxCompanyName.Name = "textBoxCompanyName";
             this.textBoxCompanyName.Size = new System.Drawing.Size(100, 23);
             this.textBoxCompanyName.TabIndex = 36;
             this.textBoxCompanyName.Visible = false;
             this.textBoxCompanyName.TextChanged += new System.EventHandler(this.textBoxCompanyName_TextChanged);
+            this.textBoxCompanyName.MouseHover += new System.EventHandler(this.textBoxCompanyName_MouseHover);
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
             // AddPart
             // 
@@ -322,5 +334,6 @@
         private BindingSource productPartBindingSource;
         private Label labelCompanyName;
         private TextBox textBoxCompanyName;
+        private ToolTip toolTip1;
     }
 }
