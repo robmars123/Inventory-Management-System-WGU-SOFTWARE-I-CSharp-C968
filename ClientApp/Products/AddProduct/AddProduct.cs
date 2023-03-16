@@ -46,10 +46,12 @@ namespace ClientApp.Products.AddProduct
             product.Price = Convert.ToDecimal(textBoxPriceCost.Text);
             product.InStock = Convert.ToInt32(textBoxInventory.Text);
 
+            //add the product to product table
+            mainScreen.inventory.addProduct(product);
 
             //save the list
             AssociatedParts = dataPartsAssociated.DataSource as List<ProductPart>;
-            var productAssociatedPart = new ProductAssociatedPart();
+
             //check if there is any associated parts you want to save
             if (AssociatedParts != null)
             {
@@ -57,15 +59,14 @@ namespace ClientApp.Products.AddProduct
 
                 foreach (var part in AssociatedParts)
                 {
+                    var productAssociatedPart = new ProductAssociatedPart();
                     productAssociatedPart.PartID = part.PartID;
                     productAssociatedPart.ProductID = newlyAddedProductID;
+                    //save product's selected parts
+                    product.SaveProductAssociatedPart(productAssociatedPart);
                 }
-                //save product's selected parts
-                product.SaveProductAssociatedPart(productAssociatedPart);
             }
 
-            //add the product to product table
-            mainScreen.inventory.addProduct(product);
             mainScreen.loadDataMainscreen();
 
             this.Close();

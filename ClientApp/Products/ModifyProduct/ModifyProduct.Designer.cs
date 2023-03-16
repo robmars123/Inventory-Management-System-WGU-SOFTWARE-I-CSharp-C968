@@ -256,6 +256,7 @@
             this.minDataGridViewTextBoxColumn,
             this.maxDataGridViewTextBoxColumn});
             this.dataCandidatePartsGrid.DataSource = this.productPartBindingSource1;
+            this.dataCandidatePartsGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataCandidatePartsGrid.Location = new System.Drawing.Point(415, 83);
             this.dataCandidatePartsGrid.Name = "dataCandidatePartsGrid";
             this.dataCandidatePartsGrid.RowHeadersVisible = false;

@@ -187,6 +187,7 @@ namespace ClientApp
             this.minDataGridViewTextBoxColumn1,
             this.maxDataGridViewTextBoxColumn1});
             this.dataProductGrid.DataSource = this.productBindingSource1;
+            this.dataProductGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataProductGrid.Location = new System.Drawing.Point(702, 123);
             this.dataProductGrid.Name = "dataProductGrid";
             this.dataProductGrid.RowHeadersVisible = false;
