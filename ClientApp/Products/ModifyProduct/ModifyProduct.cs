@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ClientApp.Products.ModifyProduct
 {
@@ -80,7 +81,7 @@ namespace ClientApp.Products.ModifyProduct
                     };
                     templist.Add(productAssociatedParts);
                 }
-                product.CheckExistingAssociatedParts(templist, deletedList,product.ProductID, "Save");
+                product.CheckExistingAssociatedParts(templist, deletedList, product.ProductID, "Save");
             }
 
             inventory.updateProduct(product.ProductID, product);
@@ -123,7 +124,8 @@ namespace ClientApp.Products.ModifyProduct
                 if (item.Selected)
                     selectedPart = item.DataBoundItem as ProductPart;
 
-                deletedList.Add(selectedPart);
+                if (!deletedList.Contains(selectedPart))
+                    deletedList.Add(selectedPart);
             }
             if (selectedPart.PartID == 0)
             {
@@ -150,7 +152,7 @@ namespace ClientApp.Products.ModifyProduct
             dataPartsAssociated.DataSource = null;
 
             //rebind the list
-            dataPartsAssociated.DataSource = AssociatedParts;
+            dataPartsAssociated.DataSource = product.AssociatedParts;
 
             // product.AssociatedParts = AssociatedParts;
 
@@ -160,6 +162,35 @@ namespace ClientApp.Products.ModifyProduct
         private void AddProduct_Click(object sender, EventArgs e)
         {
             loadDataMainscreen();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            var selectedParts = new List<ProductPart>();
+            var searchedTerm = searchBoxParts.Text.Trim().ToLower(); // Search by Part Name or Part ID
+
+
+            var list = inventory.Parts();
+
+            //check for ID
+            if (!string.IsNullOrEmpty(searchedTerm) && searchedTerm.All(char.IsDigit))
+                selectedParts = list.Where(x => x.PartID == Convert.ToInt32(searchedTerm)).ToList();
+            //check for Name
+            else
+                selectedParts = list.Where(x => x.Name.ToLower().Contains(searchedTerm)).ToList();
+
+            if (!searchBoxParts.Text.IsNullOrEmpty())
+                dataCandidatePartsGrid.DataSource = selectedParts;
+            else
+                dataCandidatePartsGrid.DataSource = inventory.Parts();//restore list if no search term applied.
+
+            if (!selectedParts.Any())
+            {
+                string message = "Part could not be found.";
+                MessageBox.Show(message);
+            }
+
+            searchBoxParts.Text = String.Empty;
         }
     }
 }
