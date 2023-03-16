@@ -2,12 +2,7 @@ using ClientApp.Parts.ModifyPart;
 using ClientApp.Parts.AddPart;
 using ClientApp.Products.AddProduct;
 using ClientApp.Products.ModifyProduct;
-using DAL.DataContext;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.EntityFrameworkCore;
-using System.Windows.Forms;
 using DAL.Models;
-using BusinessLogic.Services;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ClientApp
@@ -15,7 +10,6 @@ namespace ClientApp
     public partial class MainScreen : Form
     {
         public Inventory inventory = new Inventory();
-        private InventoryService _services = new InventoryService();
 
         private AddPart addPartForm;
         private ModifyPart modifyPartForm;
@@ -93,8 +87,8 @@ namespace ClientApp
 
         private void MainScreen_Load(object sender, EventArgs e)
         {
-            dataPartsGrid.DataSource = _services.Parts();
-            dataProductGrid.DataSource = _services.Products();
+            dataPartsGrid.DataSource = inventory.Parts();
+            dataProductGrid.DataSource = inventory.ProductsList();
         }
 
         private void exitBtn_Click(object sender, EventArgs e)
@@ -132,8 +126,8 @@ namespace ClientApp
 
         public void loadDataMainscreen()
         {
-                dataPartsGrid.DataSource = _services.Parts();
-                dataProductGrid.DataSource = _services.Products();
+                dataPartsGrid.DataSource = inventory.Parts();
+                dataProductGrid.DataSource = inventory.ProductsList();
                 dataPartsGrid.ClearSelection();
                 dataProductGrid.ClearSelection();
         }
@@ -152,6 +146,15 @@ namespace ClientApp
             {
                 if (item.Selected)
                     selectedProduct = item.DataBoundItem as Product;
+
+                //if this product does have children(parts) do not delete it.
+                var children = selectedProduct.GetProductAssociatedParts(selectedProduct.ProductID);
+                if (children.Any())
+                {
+                    string message = "This product has associated parts. Could not be deleted. Contact Administrator.";
+                    MessageBox.Show(message);
+                    return;
+                }
             }
             if (selectedProduct.ProductID == 0)
             {
@@ -181,7 +184,7 @@ namespace ClientApp
             var searchedTerm = searchBoxParts.Text.Trim().ToLower(); // Search by Part Name or Part ID
             
 
-            var list = _services.Parts();
+            var list = inventory.Parts();
 
             //check for ID
             if (!string.IsNullOrEmpty(searchedTerm) && searchedTerm.All(char.IsDigit)) 
@@ -193,7 +196,7 @@ namespace ClientApp
             if (!searchBoxParts.Text.IsNullOrEmpty())
                 dataPartsGrid.DataSource = selectedParts;
             else
-                dataPartsGrid.DataSource = _services.Parts();//restore list if no search term applied.
+                dataPartsGrid.DataSource = inventory.Parts();//restore list if no search term applied.
 
             if (!selectedParts.Any())
             {
@@ -210,7 +213,7 @@ namespace ClientApp
             var selectedProducts = new List<Product>();
             var searchedTerm = searchBoxProducts.Text.Trim().ToLower();
 
-            var list = _services.Products();
+            var list = inventory.ProductsList();
 
             //check for ID
             if (!string.IsNullOrEmpty(searchedTerm) && searchedTerm.All(char.IsDigit))
@@ -222,7 +225,7 @@ namespace ClientApp
             if (!searchBoxProducts.Text.IsNullOrEmpty())
                 dataProductGrid.DataSource = selectedProducts;
             else
-                dataProductGrid.DataSource = _services.Products();//restore list if no search term applied.
+                dataProductGrid.DataSource = inventory.ProductsList();//restore list if no search term applied.
 
             if (!selectedProducts.Any())
             {

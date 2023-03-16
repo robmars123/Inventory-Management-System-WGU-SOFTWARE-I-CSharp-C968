@@ -1,8 +1,5 @@
 ﻿using DAL.Models;
-using DAL.Models.Base;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System.ComponentModel.DataAnnotations;
 
 namespace DAL.DataContext
 {
@@ -35,7 +32,7 @@ namespace DAL.DataContext
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ProductPart>().ToTable("ProductPart");
-            modelBuilder.Entity<ProductAssociatedPart>().ToTable("ProductAssociatedPart").HasNoKey();
+            modelBuilder.Entity<ProductAssociatedPart>().ToTable("ProductAssociatedPart");
         }
 
     }

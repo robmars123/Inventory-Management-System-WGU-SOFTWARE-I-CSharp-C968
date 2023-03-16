@@ -1,25 +1,12 @@
-﻿using BusinessLogic.Services;
-using DAL.DataContext;
-using DAL.Models;
-using DAL.Models.Base;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using DAL.Models;
 
 namespace ClientApp.Products.AddProduct
 {
     public partial class AddProduct : Form
     {
         public Inventory inventory = new Inventory();
-        private InventoryService _services = new InventoryService();
-        private List<ProductPart> partList = new List<ProductPart>();
         private Product product = new Product();
+        private List<ProductPart> AssociatedParts = new List<ProductPart>();
         private MainScreen mainScreen;
         public AddProduct()
         {
@@ -39,7 +26,7 @@ namespace ClientApp.Products.AddProduct
 
         private void AddProduct_Load(object sender, EventArgs e)
         {
-            dataPartsCandidate.DataSource = _services.Parts();
+            dataPartsCandidate.DataSource = inventory.Parts();
 
             //This would be empty as Add has not happened yet.
             dataPartsAssociated.DataSource = null;
@@ -52,19 +39,38 @@ namespace ClientApp.Products.AddProduct
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //fields
+            //product first fields
             product.Name = textBoxName.Text;
             product.Max = Convert.ToInt32(textBoxMax.Text);
             product.Min = Convert.ToInt32(textBoxMin.Text);
             product.Price = Convert.ToDecimal(textBoxPriceCost.Text);
             product.InStock = Convert.ToInt32(textBoxInventory.Text);
 
-            mainScreen.inventory.addProduct(product);
 
+            //save the list
+            AssociatedParts = dataPartsAssociated.DataSource as List<ProductPart>;
+            var productAssociatedPart = new ProductAssociatedPart();
+            //check if there is any associated parts you want to save
+            if (AssociatedParts != null)
+            {
+                int newlyAddedProductID = mainScreen.inventory.NewAddedProductId;
+
+                foreach (var part in AssociatedParts)
+                {
+                    productAssociatedPart.PartID = part.PartID;
+                    productAssociatedPart.ProductID = newlyAddedProductID;
+                }
+                //save product's selected parts
+                product.SaveProductAssociatedPart(productAssociatedPart);
+            }
+
+            //add the product to product table
+            mainScreen.inventory.addProduct(product);
             mainScreen.loadDataMainscreen();
 
             this.Close();
         }
+
 
         private void btnAddPart_Click(object sender, EventArgs e)
         {
@@ -75,20 +81,32 @@ namespace ClientApp.Products.AddProduct
                     selectedPart = item.DataBoundItem as ProductPart;
             }
 
-            partList.Add(selectedPart);
-            loadDataMainscreen();
+            if (selectedPart.PartID == 0)
+            {
+                string message = "Please select something to add.";
+                MessageBox.Show(message);
+            }
+            else
+            {
+                AssociatedParts = (dataPartsAssociated.DataSource != null) ? dataPartsAssociated.DataSource as List<ProductPart> : new List<ProductPart>(); //if null then create instance and add item to it.
+                AssociatedParts.Add(selectedPart);
+
+                dataPartsAssociated.DataSource = AssociatedParts;
+                loadDataMainscreen();
+            }
         }
 
         public void loadDataMainscreen()
         {
-            dataPartsCandidate.DataSource = _services.Parts();
+            dataPartsCandidate.DataSource = inventory.Parts();
 
             //clear old datasource
             dataPartsAssociated.DataSource = null;
-            
-            //rebind the list
-            dataPartsAssociated.DataSource = partList;
 
+            //rebind the datagridview datasource
+            dataPartsAssociated.DataSource = AssociatedParts;
+            //rebind on product
+            product.AssociatedParts = AssociatedParts;
             dataPartsCandidate.ClearSelection();
             dataPartsAssociated.ClearSelection();
         }
@@ -114,7 +132,8 @@ namespace ClientApp.Products.AddProduct
                 DialogResult result = MessageBox.Show(message, null, MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    partList.Remove(selectedPart);
+                    //delete existing from db
+                    product.removeAssociatedPart(selectedPart.PartID);
                     loadDataMainscreen();
                 }
             }

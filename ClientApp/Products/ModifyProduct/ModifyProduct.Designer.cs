@@ -126,11 +126,13 @@
             this.minDataGridViewTextBoxColumn1,
             this.maxDataGridViewTextBoxColumn1});
             this.dataPartsAssociated.DataSource = this.productPartBindingSource2;
+            this.dataPartsAssociated.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataPartsAssociated.Location = new System.Drawing.Point(415, 380);
             this.dataPartsAssociated.Name = "dataPartsAssociated";
             this.dataPartsAssociated.RowHeadersVisible = false;
             this.dataPartsAssociated.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataPartsAssociated.RowTemplate.Height = 25;
+            this.dataPartsAssociated.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataPartsAssociated.Size = new System.Drawing.Size(603, 197);
             this.dataPartsAssociated.TabIndex = 68;
             // 
@@ -259,6 +261,7 @@
             this.dataCandidatePartsGrid.RowHeadersVisible = false;
             this.dataCandidatePartsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataCandidatePartsGrid.RowTemplate.Height = 25;
+            this.dataCandidatePartsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataCandidatePartsGrid.Size = new System.Drawing.Size(603, 197);
             this.dataCandidatePartsGrid.TabIndex = 51;
             // 

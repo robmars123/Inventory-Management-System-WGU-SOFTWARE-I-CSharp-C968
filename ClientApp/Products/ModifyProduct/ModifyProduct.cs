@@ -1,24 +1,13 @@
-﻿using BusinessLogic.Services;
-using DAL.DataContext;
-using DAL.Models;
-using DAL.Models.Base;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using DAL.Models;
 
 namespace ClientApp.Products.ModifyProduct
 {
     public partial class ModifyProduct : Form
     {
         private Product product = new Product();
-        private InventoryService _services = new InventoryService();
-        private List<ProductPart> partList = new List<ProductPart>();
+        private Inventory inventory = new Inventory();
+        private List<ProductPart> AssociatedParts = new List<ProductPart>();
+        private List<ProductPart> deletedList = new List<ProductPart>();
         private MainScreen mainScreen;
         public ModifyProduct()
         {
@@ -45,10 +34,16 @@ namespace ClientApp.Products.ModifyProduct
             textBoxPriceCost.Text = product.Price.ToString();
             textBoxInventory.Text = product.InStock.ToString();
 
-            dataCandidatePartsGrid.DataSource = _services.Parts();
+            dataCandidatePartsGrid.DataSource = inventory.Parts();
 
             //This would be empty as Add has not happened yet.
-            dataPartsAssociated.DataSource = _services.GetProductAssociatedParts(product.ProductID);
+            dataPartsAssociated.DataSource = product.GetProductAssociatedParts(product.ProductID);
+            //populate list
+            AssociatedParts = (dataPartsAssociated.DataSource != null) ?
+                                    dataPartsAssociated.DataSource as List<ProductPart> :
+                                                        new List<ProductPart>(); //if null then create instance and add item to it.
+            if (!product.AssociatedParts.Any())
+                product.AssociatedParts = AssociatedParts;
         }
 
         private void ModifyProduct_FormClosed(object sender, FormClosedEventArgs e)
@@ -70,8 +65,25 @@ namespace ClientApp.Products.ModifyProduct
             product.Price = Convert.ToDecimal(textBoxPriceCost.Text);
             product.InStock = Convert.ToInt32(textBoxInventory.Text);
 
-            mainScreen.inventory.updateProduct(product.ProductID, product);
 
+            AssociatedParts = dataPartsAssociated.DataSource as List<ProductPart>;
+            if (AssociatedParts != null)
+            {
+                //check if parts already exist with productID
+                var templist = new List<ProductAssociatedPart>();
+                foreach (var part in AssociatedParts)
+                {
+                    var productAssociatedParts = new ProductAssociatedPart()
+                    {
+                        PartID = part.PartID,
+                        ProductID = product.ProductID
+                    };
+                    templist.Add(productAssociatedParts);
+                }
+                product.CheckExistingAssociatedParts(templist, deletedList,product.ProductID, "Save");
+            }
+
+            inventory.updateProduct(product.ProductID, product);
             mainScreen.loadDataMainscreen();
 
             this.Close();
@@ -80,14 +92,25 @@ namespace ClientApp.Products.ModifyProduct
         private void btnAddPart_Click(object sender, EventArgs e)
         {
             var selectedPart = new ProductPart();
-            foreach (DataGridViewRow item in this.dataPartsAssociated.SelectedRows)
+            foreach (DataGridViewRow item in this.dataCandidatePartsGrid.SelectedRows)
             {
                 if (item.Selected)
                     selectedPart = item.DataBoundItem as ProductPart;
             }
 
-            partList.Add(selectedPart);
-            loadDataMainscreen();
+            if (selectedPart.PartID == 0)
+            {
+                string message = "Please select something to add.";
+                MessageBox.Show(message);
+            }
+            else
+            {
+                AssociatedParts = dataPartsAssociated.DataSource as List<ProductPart>;
+                AssociatedParts.Add(selectedPart);
+                //product.addAssociatedPart(selectedPart);
+                dataPartsAssociated.DataSource = AssociatedParts;
+                loadDataMainscreen();
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -99,6 +122,8 @@ namespace ClientApp.Products.ModifyProduct
             {
                 if (item.Selected)
                     selectedPart = item.DataBoundItem as ProductPart;
+
+                deletedList.Add(selectedPart);
             }
             if (selectedPart.PartID == 0)
             {
@@ -111,20 +136,23 @@ namespace ClientApp.Products.ModifyProduct
                 DialogResult result = MessageBox.Show(message, null, MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    partList.Remove(selectedPart);
+                    //delete existing from db
+                    product.removeAssociatedPart(selectedPart.PartID);
                     loadDataMainscreen();
                 }
             }
         }
         public void loadDataMainscreen()
         {
-            dataCandidatePartsGrid.DataSource = _services.Parts();
+            dataCandidatePartsGrid.DataSource = inventory.Parts();
 
             //clear old datasource
             dataPartsAssociated.DataSource = null;
 
             //rebind the list
-            dataPartsAssociated.DataSource = partList;
+            dataPartsAssociated.DataSource = AssociatedParts;
+
+            // product.AssociatedParts = AssociatedParts;
 
             dataCandidatePartsGrid.ClearSelection();
             dataPartsAssociated.ClearSelection();
