@@ -58,24 +58,45 @@ namespace ClientApp.Parts.ModifyPart
             textBoxCompanyName.Text = (string.IsNullOrEmpty(part.CompanyName)) ? "" : part.CompanyName.ToString();
         }
 
+        private string ValidateWholeNumber(TextBox textbox)
+        {
+            string errorMessage = string.Empty;
+            if (!ValidateNumbersOnly(textbox.Text))
+            {
+                errorMessage = "Please enter whole number for " + textbox.Name.Replace("textBox", "") + ".";
+                MessageBox.Show(errorMessage);
+                return "";
+            }
+            return textbox.Text;
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
                 //fields of product to Modify
                 part.Name = textBoxName.Text;
-                part.Max = Convert.ToInt32(textBoxMax.Text);
-                part.Min = Convert.ToInt32(textBoxMin.Text);
+                part.Max = Convert.ToInt32(ValidateWholeNumber(textBoxMax));
+                part.Min = Convert.ToInt32(ValidateWholeNumber(textBoxMin));
                 part.Price = Convert.ToDecimal(textBoxPriceCost.Text);
-                part.InStock = Convert.ToInt32(textBoxInventory.Text);
-                part.MachineID = Convert.ToInt32(textBoxMachineID.Text);
+                part.InStock = Convert.ToInt32(ValidateWholeNumber(textBoxInventory));
+                part.MachineID = Convert.ToInt32(ValidateWholeNumber(textBoxMachineID));
                 part.CompanyName = textBoxCompanyName.Text;
 
-                if ((Convert.ToInt32(string.IsNullOrEmpty(textBoxMin.Text) ? "0"
-                : textBoxMin.Text) > Convert.ToInt32(string.IsNullOrEmpty(textBoxMax.Text) ? "0"
-                : textBoxMax.Text)))
+                var inventoryValue = (Convert.ToInt32(string.IsNullOrEmpty(textBoxInventory.Text) ? "0" : textBoxInventory.Text));
+                var maxValue = (Convert.ToInt32(string.IsNullOrEmpty(textBoxMax.Text) ? "0" : textBoxMax.Text));
+                var minValue = (Convert.ToInt32(string.IsNullOrEmpty(textBoxMin.Text) ? "0" : textBoxMin.Text));
+
+                if (minValue > maxValue)
                 {
                     string message = "Your minimum exceeds your maximum value.";
+                    MessageBox.Show(message);
+                    return;
+                }
+
+                if (inventoryValue > maxValue || inventoryValue < minValue)
+                {
+                    string message = "Your inventory is outside of min/max range.";
                     MessageBox.Show(message);
                     return;
                 }
