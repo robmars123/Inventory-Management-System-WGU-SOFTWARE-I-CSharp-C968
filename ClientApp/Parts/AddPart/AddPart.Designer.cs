@@ -268,10 +268,7 @@
             this.textBoxCompanyName.TextChanged += new System.EventHandler(this.textBoxCompanyName_TextChanged);
             this.textBoxCompanyName.MouseHover += new System.EventHandler(this.textBoxCompanyName_MouseHover);
             // 
-            // toolTip1
-            // 
-            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
-            // 
+
             // AddPart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);

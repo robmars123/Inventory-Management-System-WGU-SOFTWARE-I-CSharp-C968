@@ -102,7 +102,6 @@ namespace ClientApp.Products.AddProduct
                 }
 
                 mainScreen.loadDataMainscreen();
-
                 this.Close();
             }
             catch (Exception ex)
@@ -115,11 +114,7 @@ namespace ClientApp.Products.AddProduct
         private void btnAddPart_Click(object sender, EventArgs e)
         {
             var selectedPart = new ProductPart();
-            foreach (DataGridViewRow item in this.dataPartsCandidate.SelectedRows)
-            {
-                if (item.Selected)
-                    selectedPart = item.DataBoundItem as ProductPart;
-            }
+            selectedPart = dataPartsCandidate.SelectedRows[0].DataBoundItem as ProductPart;
 
             if (selectedPart.PartID == 0)
             {
@@ -128,8 +123,8 @@ namespace ClientApp.Products.AddProduct
             }
             else
             {
-                AssociatedParts = (dataPartsAssociated.DataSource != null) ? dataPartsAssociated.DataSource as List<ProductPart> : new List<ProductPart>(); //if null then create instance and add item to it.
-                AssociatedParts.Add(selectedPart);
+                product.addAssociatedPart(selectedPart);
+                AssociatedParts = product.AssociatedParts;
 
                 dataPartsAssociated.DataSource = AssociatedParts;
                 loadDataMainscreen();
@@ -146,7 +141,7 @@ namespace ClientApp.Products.AddProduct
             //rebind the datagridview datasource
             dataPartsAssociated.DataSource = AssociatedParts;
             //rebind on product
-            product.AssociatedParts = AssociatedParts;
+            product.AssociatedParts = AssociatedParts.Cast<ProductPart>().ToList();
             dataPartsCandidate.ClearSelection();
             dataPartsAssociated.ClearSelection();
         }
@@ -154,13 +149,8 @@ namespace ClientApp.Products.AddProduct
         private void btnDelete_Click(object sender, EventArgs e)
         {
             var selectedPart = new ProductPart();
+            selectedPart = dataPartsAssociated.SelectedRows[0].DataBoundItem as ProductPart;
 
-            //Foreach is being used for multi-select but SOFTWARE I – C# — C968 only 1 selection is required.
-            foreach (DataGridViewRow item in this.dataPartsAssociated.SelectedRows)
-            {
-                if (item.Selected)
-                    selectedPart = item.DataBoundItem as ProductPart;
-            }
             if (selectedPart.PartID == 0)
             {
                 string message = "Please select something to delete.";
@@ -273,7 +263,7 @@ namespace ClientApp.Products.AddProduct
             var searchedTerm = searchBoxParts.Text.Trim().ToLower(); // Search by Part Name or Part ID
 
 
-            var list = inventory.Parts();
+            var list = inventory.Parts().Cast<ProductPart>();
 
             //check for ID
             if (!string.IsNullOrEmpty(searchedTerm) && searchedTerm.All(char.IsDigit))
