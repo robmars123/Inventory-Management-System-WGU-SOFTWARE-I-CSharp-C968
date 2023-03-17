@@ -1,4 +1,6 @@
 ﻿using DAL.Models;
+using DAL.Models.Base;
+using Microsoft.IdentityModel.Tokens;
 using System.Text.RegularExpressions;
 
 namespace ClientApp.Products.AddProduct
@@ -38,23 +40,42 @@ namespace ClientApp.Products.AddProduct
         {
             this.Close();
         }
-
+        private string ValidateWholeNumber(TextBox textbox)
+        {
+            string errorMessage = string.Empty;
+            if (!ValidateNumbersOnly(textbox.Text))
+            {
+                errorMessage = "Please enter whole number for " + textbox.Name.Replace("textBox", "") + ".";
+                MessageBox.Show(errorMessage);
+                return "";
+            }
+            return textbox.Text;
+        }
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
                 //product first fields
                 product.Name = textBoxName.Text;
-                product.Max = Convert.ToInt32(textBoxMax.Text);
-                product.Min = Convert.ToInt32(textBoxMin.Text);
+                product.Max = Convert.ToInt32(ValidateWholeNumber(textBoxMax));
+                product.Min = Convert.ToInt32(ValidateWholeNumber(textBoxMin));
                 product.Price = Convert.ToDecimal(textBoxPriceCost.Text);
-                product.InStock = Convert.ToInt32(textBoxInventory.Text);
+                product.InStock = Convert.ToInt32(ValidateWholeNumber(textBoxInventory));
 
-                if ((Convert.ToInt32(string.IsNullOrEmpty(textBoxMin.Text) ? "0"
-                : textBoxMin.Text) > Convert.ToInt32(string.IsNullOrEmpty(textBoxMax.Text) ? "0"
-                : textBoxMax.Text)))
+                var inventoryValue = (Convert.ToInt32(string.IsNullOrEmpty(textBoxInventory.Text) ? "0" : textBoxInventory.Text));
+                var maxValue = (Convert.ToInt32(string.IsNullOrEmpty(textBoxMax.Text) ? "0" : textBoxMax.Text));
+                var minValue = (Convert.ToInt32(string.IsNullOrEmpty(textBoxMin.Text) ? "0" : textBoxMin.Text));
+
+                if (minValue > maxValue)
                 {
                     string message = "Your minimum exceeds your maximum value.";
+                    MessageBox.Show(message);
+                    return;
+                }
+
+                if (inventoryValue > maxValue || inventoryValue < minValue)
+                {
+                    string message = "Your inventory is outside of min/max range.";
                     MessageBox.Show(message);
                     return;
                 }
@@ -244,6 +265,35 @@ namespace ClientApp.Products.AddProduct
         private void textBoxMin_TextChanged(object sender, EventArgs e)
         {
             ControlsValidation();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            var selectedParts = new List<ProductPart>();
+            var searchedTerm = searchBoxParts.Text.Trim().ToLower(); // Search by Part Name or Part ID
+
+
+            var list = inventory.Parts();
+
+            //check for ID
+            if (!string.IsNullOrEmpty(searchedTerm) && searchedTerm.All(char.IsDigit))
+                selectedParts = list.Where(x => x.PartID == Convert.ToInt32(searchedTerm)).ToList();
+            //check for Name
+            else
+                selectedParts = list.Where(x => x.Name.ToLower().Contains(searchedTerm)).ToList();
+
+            if (!searchBoxParts.Text.IsNullOrEmpty())
+                dataPartsCandidate.DataSource = selectedParts;
+            else
+                dataPartsCandidate.DataSource = inventory.Parts();//restore list if no search term applied.
+
+            if (!selectedParts.Any())
+            {
+                string message = "Part could not be found.";
+                MessageBox.Show(message);
+            }
+
+            searchBoxParts.Text = String.Empty;
         }
     }
 }
