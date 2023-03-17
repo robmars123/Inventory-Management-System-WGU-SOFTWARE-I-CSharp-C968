@@ -148,17 +148,6 @@ namespace ClientApp.Parts.ModifyPart
                 textBoxCompanyName.BackColor = Color.LightPink;
             else
                 textBoxCompanyName.BackColor = Color.White;
-
-            ////if required fields are empty, disable Save button
-            //if (string.IsNullOrEmpty(textBoxName.Text) ||
-            //       string.IsNullOrEmpty(textBoxInventory.Text) ||
-            //       string.IsNullOrEmpty(textBoxPriceCost.Text) ||
-            //       string.IsNullOrEmpty(textBoxMin.Text) ||
-            //       string.IsNullOrEmpty(textBoxMax.Text) ||
-            //       string.IsNullOrEmpty(textBoxMachineID.Text))
-            //    btnSave.Enabled = false;
-            //else
-            //    btnSave.Enabled = true;
         }
 
         private void textBoxName_TextChanged(object sender, EventArgs e)

@@ -1,11 +1,12 @@
 ﻿using DAL.DataContext;
+using DAL.Models.Base;
 
 namespace DAL.Models
 {
     public class Inventory
     {
         public List<Product> Products { get; set; }
-        public List<ProductPart> AllParts { get; set; }
+        public List<Part> AllParts { get; set; }
 
         public void addProduct(Product product)
         {
@@ -27,7 +28,7 @@ namespace DAL.Models
                 {
                     context.ChangeTracker.Clear();
                     context.Products.Remove(product);
-                     context.SaveChanges();
+                    context.SaveChanges();
                     return true;
                 }
                 return false;
@@ -52,37 +53,40 @@ namespace DAL.Models
             }
         }
 
-        public void addPart(ProductPart part)
+        public void addPart(Part part)
         {
             using (var context = new InventoryDBContext())
             {
-                context.ProductParts.Add(part);
+                context.ProductParts.Add((ProductPart)part);
                 context.SaveChanges();
             }
         }
 
-        public bool deletePart(ProductPart part)
+        public bool deletePart(Part part)
         {
             using (var context = new InventoryDBContext())
             {
                 context.ChangeTracker.Clear();
-                context.ProductParts.Remove(part);
+                context.ProductParts.Remove((ProductPart)part);
                 context.SaveChanges();
                 return true;
             }
         }
 
-        public ProductPart lookupPart(int id)
+        public Part lookupPart(int id)
         {
-            return null;
+            using (var context = new InventoryDBContext())
+            {
+                return context.ProductParts.Find(id);
+            }
         }
 
-        public void updatePart(int id, ProductPart part)
+        public void updatePart(int id, Part part)
         {
             using (var context = new InventoryDBContext())
             {
                 context.ChangeTracker.Clear();
-                context.ProductParts.Update(part);
+                context.ProductParts.Update((ProductPart)part);
                 context.SaveChanges();
             }
         }
@@ -93,16 +97,16 @@ namespace DAL.Models
         {
             using (var context = new InventoryDBContext())
             {
-                return NewAddedProductId = context.Products.OrderByDescending(x=>x.ProductID).FirstOrDefault().ProductID;
+                return NewAddedProductId = context.Products.OrderByDescending(x => x.ProductID).FirstOrDefault().ProductID;
             }
         }
 
 
-        public List<ProductPart> Parts()
+        public List<Part> Parts()
         {
             using (var context = new InventoryDBContext())
             {
-                AllParts = context.ProductParts.ToList();
+                AllParts = context.ProductParts.Cast<Part>().ToList();
             }
             return AllParts;
         }

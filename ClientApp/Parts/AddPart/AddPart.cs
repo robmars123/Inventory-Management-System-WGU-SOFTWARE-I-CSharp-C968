@@ -214,23 +214,10 @@ namespace ClientApp.Parts.AddPart
         {
             toolTip1.SetToolTip(textBoxName, "Name requires letters.");
         }
-        private void ToolTipHoverValidation(string message, object sender)
-        {
-            TextBox TB = (TextBox)sender;
-            int VisibleTime = 2000;  //in milliseconds
-
-            ToolTip tt = new ToolTip();
-            tt.Show(message, TB, 30, 10, VisibleTime);
-        }
 
         private void textBoxInventory_MouseHover(object sender, EventArgs e)
         {
             toolTip1.SetToolTip(textBoxInventory, "Inventory requires numbers.");
-        }
-
-        private void toolTip1_Popup(object sender, PopupEventArgs e)
-        {
-
         }
 
         private void textBoxPriceCost_MouseHover(object sender, EventArgs e)

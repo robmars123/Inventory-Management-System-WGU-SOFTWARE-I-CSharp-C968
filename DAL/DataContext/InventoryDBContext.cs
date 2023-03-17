@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using DAL.Models.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.DataContext

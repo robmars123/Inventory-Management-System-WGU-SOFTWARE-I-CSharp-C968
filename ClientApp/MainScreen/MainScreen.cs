@@ -4,6 +4,7 @@ using ClientApp.Products.AddProduct;
 using ClientApp.Products.ModifyProduct;
 using DAL.Models;
 using Microsoft.IdentityModel.Tokens;
+using DAL.Models.Base;
 
 namespace ClientApp
 {
@@ -183,13 +184,13 @@ namespace ClientApp
             var selectedParts = new List<ProductPart>();
             var searchedTerm = searchBoxParts.Text.Trim().ToLower(); // Search by Part Name or Part ID
             
+            var list = inventory.Parts().Cast<ProductPart>().ToList();
 
-            var list = inventory.Parts();
-
-            //check for ID
-            if (!string.IsNullOrEmpty(searchedTerm) && searchedTerm.All(char.IsDigit)) 
-                selectedParts = list.Where(x =>  x.PartID == Convert.ToInt32(searchedTerm)).ToList();
-            //check for Name
+            //search for ID
+            if (!string.IsNullOrEmpty(searchedTerm) && searchedTerm.All(char.IsDigit))
+                //selectedParts = list.Where(x =>  x.PartID == Convert.ToInt32(searchedTerm)).ToList();
+                selectedParts.Add(inventory.lookupPart(Convert.ToInt32(searchedTerm)) as ProductPart) ;
+            //search for Name
             else
                 selectedParts = list.Where(x => x.Name.ToLower().Contains(searchedTerm)).ToList();
 

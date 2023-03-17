@@ -39,15 +39,7 @@ namespace ClientApp.Products.ModifyProduct
 
             dataCandidatePartsGrid.DataSource = inventory.Parts();
 
-            //This would be empty as Add has not happened yet.
             dataPartsAssociated.DataSource = product.GetProductAssociatedParts(product.ProductID);
-            //populate list
-            AssociatedParts = (dataPartsAssociated.DataSource != null) ?
-                                    dataPartsAssociated.DataSource as List<ProductPart> :
-                                                        new List<ProductPart>(); //if null then create instance and add item to it.
-            if (!product.AssociatedParts.Any())
-                product.AssociatedParts = AssociatedParts;
-
             ControlsValidation();
         }
 
@@ -133,11 +125,7 @@ namespace ClientApp.Products.ModifyProduct
         private void btnAddPart_Click(object sender, EventArgs e)
         {
             var selectedPart = new ProductPart();
-            foreach (DataGridViewRow item in this.dataCandidatePartsGrid.SelectedRows)
-            {
-                if (item.Selected)
-                    selectedPart = item.DataBoundItem as ProductPart;
-            }
+            selectedPart = dataCandidatePartsGrid.SelectedRows[0].DataBoundItem as ProductPart;
 
             if (selectedPart.PartID == 0)
             {
@@ -146,8 +134,9 @@ namespace ClientApp.Products.ModifyProduct
             }
             else
             {
-                AssociatedParts = dataPartsAssociated.DataSource as List<ProductPart>;
-                AssociatedParts.Add(selectedPart);
+                product.addAssociatedPart(selectedPart);
+                AssociatedParts = product.AssociatedParts;
+
                 dataPartsAssociated.DataSource = AssociatedParts;
                 loadDataMainscreen();
             }
@@ -204,9 +193,7 @@ namespace ClientApp.Products.ModifyProduct
         {
             var selectedParts = new List<ProductPart>();
             var searchedTerm = searchBoxParts.Text.Trim().ToLower(); // Search by Part Name or Part ID
-
-
-            var list = inventory.Parts();
+            var list = inventory.Parts().Cast<ProductPart>();
 
             //check for ID
             if (!string.IsNullOrEmpty(searchedTerm) && searchedTerm.All(char.IsDigit))
